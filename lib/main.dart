@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:lingua_chat/firebase_options.dart';
+
 import 'package:lingua_chat/screens/log_in_screen.dart';
 
-import 'screens/home.dart';
+void main() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-void main() {
   runApp(const LinguaChatApp());
 }
 
