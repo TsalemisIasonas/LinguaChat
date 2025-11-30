@@ -1,36 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:lingua_chat/styles/colors.dart';
 import 'package:lingua_chat/widgets/banner.dart';
-import 'package:lingua_chat/widgets/login_form.dart';
 
-
-// TODO: LOGIN ONLY LEADS TO HOME SCREEN FOR NOW
-// TODO: THERE IS AN OVERFLOW WHEN I FILL IN DATA
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: backgroundColor,
-
       appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
 
       body: Stack(
         children: [
           const LinguaBanner(),
-          Padding(
-            padding: const EdgeInsets.only(top: 180.0),
-            child: Center(child: Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: const LoginForm(),
-            )),
-          ),
         ],
       ),
-
       
     );
   }

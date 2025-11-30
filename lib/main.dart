@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lingua_chat/screens/home_screen.dart';
+import 'package:lingua_chat/screens/log_in_screen.dart';
 
 import 'screens/home.dart';
 
@@ -17,7 +17,7 @@ class LinguaChatApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const HomePage(),
+      home: const LoginScreen(),
     );
   }
 }
