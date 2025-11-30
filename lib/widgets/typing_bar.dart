@@ -1,0 +1,108 @@
+import 'package:flutter/material.dart';
+import 'package:lingua_chat/screens/speaking_screen.dart';
+
+class TypingBar extends StatefulWidget {
+  const TypingBar({super.key});
+
+  @override
+  State<TypingBar> createState() => _TypingBarState();
+}
+
+class _TypingBarState extends State<TypingBar> {
+  final TextEditingController _messageController = TextEditingController();
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    super.dispose();
+  }
+
+  void _goToSpeakingScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SpeakingScreen(),
+      ),
+    );
+  }
+
+  void _sendMessage() {
+    if (_messageController.text.trim().isNotEmpty) {
+      // Handle sending message
+      _messageController.clear();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // Microphone button
+          GestureDetector(
+            onTap: _goToSpeakingScreen,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              child: const Icon(
+                Icons.mic,
+                size: 28,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          
+          // Text input field
+          Expanded(
+            child: TextField(
+              controller: _messageController,
+              decoration: const InputDecoration(
+                hintText: 'Type a message...',
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              ),
+              maxLines: null,
+              textInputAction: TextInputAction.send,
+              onSubmitted: (_) => _sendMessage(),
+            ),
+          ),
+          
+          const SizedBox(width: 8),
+          
+          // Send button
+          GestureDetector(
+            onTap: _sendMessage,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
+                color: Color(0xFF6C63FF),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.send,
+                size: 24,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

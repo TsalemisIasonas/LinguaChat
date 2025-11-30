@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lingua_chat/screens/home_screen.dart';
+import 'package:lingua_chat/screens/log_in_screen.dart';
 
 void main() {
   runApp(const LinguaChatApp());
@@ -25,7 +25,7 @@ class LinguaChatApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF5F7FB),
         fontFamily: 'SF Pro Display',
       ),
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
