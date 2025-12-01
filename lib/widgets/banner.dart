@@ -23,10 +23,10 @@ class LinguaBanner extends StatelessWidget {
           ),
         ),
         child: const Padding(
-          padding: EdgeInsets.only(left: 80.0, top: 120.0),
+          padding: EdgeInsets.only(top: 120.0),
           child: Text(
             'LINGUA\n\t\t\t\t\t\t\tCHAT',
-            textAlign: TextAlign.start,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.w400,

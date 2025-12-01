@@ -39,7 +39,7 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
           Center(child: Image.asset('assets/images/app_logo.png')),
-          Positioned(child: TypingBar(), bottom: 0, left: 0, right: 0),
+          Positioned(bottom: 0, left: 0, right: 0, child: TypingBar()),
         ],
       ),
     );

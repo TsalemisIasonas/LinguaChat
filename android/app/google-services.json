@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "418708659686",
+    "project_id": "linquachat",
+    "storage_bucket": "linquachat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418708659686:android:e247109c45e8c202c88a27",
+        "android_client_info": {
+          "package_name": "com.example.lingua_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2CSO6t9i6mBnmiEotBbAkS71qd_8LIkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

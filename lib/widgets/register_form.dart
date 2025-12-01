@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:lingua_chat/screens/log_in_screen.dart';
 import 'package:lingua_chat/widgets/input_field.dart';
 import 'package:lingua_chat/widgets/print_error_text.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends State<RegisterForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  String? _loginErrorMessage;
+  final _passwordVerifyController = TextEditingController();
+  String? _registerErrorMessage;
 
   final ButtonStyle _buttonStyle = ElevatedButton.styleFrom(
     backgroundColor: const Color(0xFF2B2B2B),
@@ -24,16 +26,15 @@ class _LoginFormState extends State<LoginForm> {
     elevation: 4,
   );
 
-  Future<void> loginUserWithEmailAndPassword() async {
+  Future<void> registerUserWithEmailAndPassword() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       setState(() {
-        _loginErrorMessage = e.message;
+        _registerErrorMessage = e.message;
       });
     }
   }
@@ -42,6 +43,7 @@ class _LoginFormState extends State<LoginForm> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _passwordVerifyController.dispose();
     super.dispose();
   }
 
@@ -58,7 +60,7 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'Log In',
+            'Register',
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
@@ -66,34 +68,50 @@ class _LoginFormState extends State<LoginForm> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
 
-          printErrorText(_loginErrorMessage),
+          printErrorText(_registerErrorMessage),
           const SizedBox(height: 10),
 
           inputField("Email", _emailController),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
 
           inputField("Password", _passwordController, obscureText_: true),
+          const SizedBox(height: 12),
+
+          inputField(
+            "Verify Password",
+            _passwordVerifyController,
+            obscureText_: true,
+          ),
           const SizedBox(height: 32),
 
-          // Login button
+          // Register button
           ElevatedButton(
             onPressed: () async {
-              await loginUserWithEmailAndPassword();
+              if (_passwordController.text != _passwordVerifyController.text) {
+                setState(() {
+                  _registerErrorMessage =
+                      "Password wasn't the same both times!";
+                });
+
+                return;
+              }
+
+              await registerUserWithEmailAndPassword();
             },
             style: _buttonStyle,
             child: const Text(
-              'Log In',
+              'Register',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
 
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           const Text(
-            'OR',
+            'Already have an account?',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
@@ -101,14 +119,14 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 8),
 
-          // Register button
+          // Login button
           ElevatedButton(
             onPressed: () async {
-              Navigator.pop(context);
+              Navigator.push(context, LoginScreen.route());
             },
             style: _buttonStyle,
             child: const Text(
-              'Register Here',
+              'Log In',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
