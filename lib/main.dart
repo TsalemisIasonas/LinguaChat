@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:lingua_chat/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:lingua_chat/screens/log_in_screen.dart';
+import 'package:lingua_chat/firebase_options.dart';
+import 'package:lingua_chat/screens/home_screen.dart';
+import 'package:lingua_chat/screens/register_screen.dart';
 
 void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -20,7 +22,18 @@ class LinguaChatApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const LoginScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.data != null) {
+            return HomeScreen();
+          }
+          return RegisterScreen();
+        },
+      ),
     );
   }
 }
