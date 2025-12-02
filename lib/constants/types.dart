@@ -9,3 +9,5 @@ enum AppScreen {
   talk,
   settings,
 }
+
+enum UserLevel { beginner, intermediate, advanced }
