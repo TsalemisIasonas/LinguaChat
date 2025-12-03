@@ -9,3 +9,7 @@ enum AppScreen {
   talk,
   settings,
 }
+
+enum UserLevel { beginner, intermediate, advanced }
+
+enum Languages {greek, english, german, french, italian}
