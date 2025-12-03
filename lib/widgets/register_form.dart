@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lingua_chat/screens/log_in_screen.dart';
 import 'package:lingua_chat/widgets/input_field.dart';
 import 'package:lingua_chat/widgets/print_error_text.dart';
+import 'package:lingua_chat/models/database.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -28,10 +29,14 @@ class _LoginFormState extends State<RegisterForm> {
 
   Future<void> registerUserWithEmailAndPassword() async {
     try {
+      String newUserEmail = _emailController.text.trim();
+
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
+        email: newUserEmail,
         password: _passwordController.text.trim(),
       );
+
+      DatabaseService().createDefaultUser(newUserEmail);
     } on FirebaseAuthException catch (e) {
       setState(() {
         _registerErrorMessage = e.message;

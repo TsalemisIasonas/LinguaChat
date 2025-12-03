@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lingua_chat/models/database.dart';
+import 'package:lingua_chat/models/user.dart';
+import 'package:lingua_chat/screens/home_screen.dart';
 
 import 'package:lingua_chat/widgets/input_field.dart';
 import 'package:lingua_chat/widgets/print_error_text.dart';
@@ -25,12 +28,19 @@ class _LoginFormState extends State<LoginForm> {
   );
 
   Future<void> loginUserWithEmailAndPassword() async {
+    String userEmail = _emailController.text.trim();
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
+        email: userEmail,
         password: _passwordController.text.trim(),
       );
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        (route) => false,
+      );
+
+      currentUser = await DatabaseService().getUser(userEmail);
     } on FirebaseAuthException catch (e) {
       setState(() {
         _loginErrorMessage = e.message;
