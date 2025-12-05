@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:lingua_chat/screens/register_screen.dart';
+import 'package:lingua_chat/screens/log_in_screen.dart';
 
 Widget logoutButton(BuildContext context) {
   return SizedBox(
@@ -11,7 +11,7 @@ Widget logoutButton(BuildContext context) {
 
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const RegisterScreen()),
+          MaterialPageRoute(builder: (_) => const LoginScreen()),
           (route) => false,
         );
       },

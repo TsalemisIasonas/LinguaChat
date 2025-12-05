@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:lingua_chat/screens/log_in_screen.dart';
+import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/widgets/input_field.dart';
 import 'package:lingua_chat/widgets/print_error_text.dart';
 import 'package:lingua_chat/models/database.dart';
@@ -37,6 +37,11 @@ class _LoginFormState extends State<RegisterForm> {
       );
 
       DatabaseService().createDefaultUser(newUserEmail);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        (route) => false,
+      );
     } on FirebaseAuthException catch (e) {
       setState(() {
         _registerErrorMessage = e.message;
@@ -127,7 +132,7 @@ class _LoginFormState extends State<RegisterForm> {
           // Login button
           ElevatedButton(
             onPressed: () async {
-              Navigator.push(context, LoginScreen.route());
+              Navigator.pop(context);
             },
             style: _buttonStyle,
             child: const Text(

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:lingua_chat/firebase_options.dart';
 import 'package:lingua_chat/screens/home_screen.dart';
-import 'package:lingua_chat/screens/register_screen.dart';
+import 'package:lingua_chat/screens/log_in_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +32,7 @@ class LinguaChatApp extends StatelessWidget {
           if (snapshot.data != null) {
             return HomeScreen();
           }
-          return RegisterScreen();
+          return LoginScreen();
         },
       ),
     );
