@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/widgets/input_field.dart';
 import 'package:lingua_chat/widgets/print_error_text.dart';
-import 'package:lingua_chat/models/database.dart';
+import 'package:lingua_chat/repositories/user_repository.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -36,7 +36,7 @@ class _LoginFormState extends State<RegisterForm> {
         password: _passwordController.text.trim(),
       );
 
-      DatabaseService().createDefaultUser(newUserEmail);
+      UserRepository().createDefaultUser(newUserEmail);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const HomeScreen()),

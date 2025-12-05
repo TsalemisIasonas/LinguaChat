@@ -5,7 +5,7 @@ import 'package:lingua_chat/constants/types.dart';
 import 'package:lingua_chat/models/user.dart';
 
 /// The main entry point for database functionality.
-class DatabaseService {
+class UserRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   /// Function to create or update a user in the database from a LinguaUser object.

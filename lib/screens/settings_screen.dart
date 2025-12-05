@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:lingua_chat/constants/types.dart';
 import 'package:lingua_chat/styles/colors.dart';
-import 'package:lingua_chat/models/database.dart';
+import 'package:lingua_chat/repositories/user_repository.dart';
 import 'package:lingua_chat/models/user.dart';
 import 'package:lingua_chat/widgets/app_bar.dart';
 import 'package:lingua_chat/widgets/language_dropdown.dart';
@@ -51,7 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }
 
                     currentUser.language = valueChosen;
-                    DatabaseService().addOrUpdateUser(currentUser);
+                    UserRepository().addOrUpdateUser(currentUser);
                   });
                 },
               ),
@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () {
                   setState(() {
                     currentUser.level = UserLevel.beginner;
-                    DatabaseService().addOrUpdateUser(currentUser);
+                    UserRepository().addOrUpdateUser(currentUser);
                   });
                 },
               ),
@@ -75,7 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () {
                   setState(() {
                     currentUser.level = UserLevel.intermediate;
-                    DatabaseService().addOrUpdateUser(currentUser);
+                    UserRepository().addOrUpdateUser(currentUser);
                   });
                 },
               ),
@@ -87,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () {
                   setState(() {
                     currentUser.level = UserLevel.advanced;
-                    DatabaseService().addOrUpdateUser(currentUser);
+                    UserRepository().addOrUpdateUser(currentUser);
                   });
                 },
               ),
