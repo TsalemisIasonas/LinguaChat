@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:lingua_chat/models/user.dart';
+import 'package:lingua_chat/repositories/user_repository.dart';
 import 'package:lingua_chat/styles/colors.dart';
 import 'package:lingua_chat/widgets/app_bar.dart';
+import 'package:lingua_chat/widgets/profile_banner.dart';
+import 'package:lingua_chat/widgets/progress_card.dart';
 import 'package:lingua_chat/widgets/floating_action_button.dart';
 import 'package:lingua_chat/widgets/navigation_bar.dart';
 import 'package:lingua_chat/screens/settings_screen.dart';
@@ -18,7 +22,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final ButtonStyle _buttonStyle = ElevatedButton.styleFrom(
-    backgroundColor: Colors.deepOrangeAccent,
+    backgroundColor: Colors.deepPurple,
     foregroundColor: Colors.white,
 
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -40,25 +44,72 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
 
         appBar: linguaAppBar(title_: "Profile"),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Settings button
-              ElevatedButton(
+
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const SizedBox(height: 60),
+
+                  ProfileBanner(
+                    username: currentUser.username,
+                    userLevel: currentUser.level.name,
+                    avatarPath: currentUser.profilePicturePath,
+                    onNameChanged: (newName) {
+                      setState(() {});
+                      currentUser.username = newName;
+                      UserRepository().addOrUpdateUser(currentUser);
+                    },
+                    onAvatarChanged: (newAvatar) {
+                      setState(() {
+                        currentUser.profilePicturePath = newAvatar;
+                        UserRepository().addOrUpdateUser(currentUser);
+                      });
+                    },
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  progressCard(
+                    title: "Progress",
+                    xp: "12850",
+                    lessons: "48",
+                    rank: "#1",
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  progressCard(
+                    title: "More Stats",
+                    xp: "12850",
+                    lessons: "48",
+                    rank: "#1",
+                  ),
+
+                  const SizedBox(height: 80),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 80),
+              child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(context, SettingsScreen.route());
                 },
                 style: _buttonStyle,
-                child: const Text(
+                icon: const Icon(Icons.settings, size: 22),
+                label: const Text(
                   'Settings',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+
         bottomNavigationBar: const LinguaNavigationBar(),
       ),
     );

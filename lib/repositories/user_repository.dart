@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:lingua_chat/constants/types.dart';
 import 'package:lingua_chat/models/user.dart';
 
 /// The main entry point for database functionality.
-class DatabaseService {
+class UserRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   /// Function to create or update a user in the database from a LinguaUser object.
@@ -40,7 +39,7 @@ class DatabaseService {
   void createDefaultUser(String newUserEmail) {
     LinguaUser newUser = LinguaUser(
       email: newUserEmail,
-      username: newUserEmail,
+      username: newUserEmail.split('@').first, // get username
       level: UserLevel.beginner,
       language: Languages.english,
       streak: 0,

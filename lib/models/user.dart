@@ -7,6 +7,7 @@ LinguaUser currentUser = LinguaUser(
   level: UserLevel.beginner,
   language: Languages.english,
   streak: 0,
+  profilePicturePath: null,
 );
 
 /// The model of the data contained in the database about the user.
@@ -17,6 +18,7 @@ class LinguaUser {
   UserLevel level;
   Languages language;
   int streak;
+  String? profilePicturePath;
 
   LinguaUser({
     required this.email,
@@ -24,6 +26,7 @@ class LinguaUser {
     required this.level,
     required this.language,
     required this.streak,
+    this.profilePicturePath,
   });
 
   /// Convert a User object into a Map for Firestore (writing data)
@@ -34,6 +37,7 @@ class LinguaUser {
       'level': level.name,
       'language': language.name,
       'streak': streak,
+      'profilePicturePath': profilePicturePath,
     };
   }
 
@@ -45,6 +49,7 @@ class LinguaUser {
       level: UserLevel.values.byName(firestoreData['level']),
       language: Languages.values.byName(firestoreData['language']),
       streak: firestoreData['streak'],
+      profilePicturePath: firestoreData['profilePicturePath'],
     );
   }
 }

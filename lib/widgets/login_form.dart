@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:lingua_chat/models/database.dart';
+import 'package:lingua_chat/repositories/user_repository.dart';
 import 'package:lingua_chat/models/user.dart';
 import 'package:lingua_chat/screens/register_screen.dart';
 import 'package:lingua_chat/screens/home_screen.dart';
@@ -36,7 +36,7 @@ class _LoginFormState extends State<LoginForm> {
         password: _passwordController.text.trim(),
       );
 
-      currentUser = await DatabaseService().getUser(userEmail);
+      currentUser = await UserRepository().getUser(userEmail);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const HomeScreen()),
