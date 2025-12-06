@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:lingua_chat/constants/types.dart';
 import 'package:lingua_chat/models/user.dart';
@@ -40,7 +39,7 @@ class UserRepository {
   void createDefaultUser(String newUserEmail) {
     LinguaUser newUser = LinguaUser(
       email: newUserEmail,
-      username: newUserEmail,
+      username: newUserEmail.split('@').first, // get username
       level: UserLevel.beginner,
       language: Languages.english,
       streak: 0,
