@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:lingua_chat/screens/chat_screen.dart';
 import 'package:lingua_chat/screens/speaking_screen.dart';
 
@@ -84,15 +85,11 @@ class ModeSelectButton extends StatelessWidget {
         mode == 'Conversation'
             ? Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const ChatScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const ChatScreen()),
               )
             : Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SpeakingScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const SpeakingScreen()),
               );
       },
     );
