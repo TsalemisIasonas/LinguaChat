@@ -43,10 +43,24 @@ class UserRepository {
       level: UserLevel.beginner,
       language: Languages.english,
       streak: 0,
+      score: 0,
     );
 
     addOrUpdateUser(newUser);
 
     currentUser = newUser;
+  }
+
+  Stream<List<LinguaUser>> streamCityLeaderboard(String? city) {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .where('locationCity', isEqualTo: city)
+        .orderBy('score', descending: true)
+        .snapshots()
+        .map((snap) {
+          return snap.docs.map((doc) {
+            return LinguaUser.fromFirestore(doc.data());
+          }).toList();
+        });
   }
 }
