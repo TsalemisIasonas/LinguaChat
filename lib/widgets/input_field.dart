@@ -18,7 +18,7 @@ Widget inputField(
           color: Colors.black,
         ),
       ),
-      const SizedBox(height: 12),
+      const SizedBox(height: 8),
 
       // Email input
       TextField(

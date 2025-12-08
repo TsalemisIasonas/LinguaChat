@@ -22,7 +22,7 @@ class _LoginFormState extends State<RegisterForm> {
   final ButtonStyle _buttonStyle = ElevatedButton.styleFrom(
     backgroundColor: const Color(0xFF2B2B2B),
     foregroundColor: Colors.white,
-    padding: const EdgeInsets.symmetric(vertical: 18),
+    padding: const EdgeInsets.symmetric(vertical: 10),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     elevation: 4,
   );
@@ -60,7 +60,7 @@ class _LoginFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
@@ -78,7 +78,7 @@ class _LoginFormState extends State<RegisterForm> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 15),
 
           printErrorText(_registerErrorMessage),
           const SizedBox(height: 10),

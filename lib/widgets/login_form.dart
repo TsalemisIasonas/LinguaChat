@@ -23,7 +23,7 @@ class _LoginFormState extends State<LoginForm> {
   final ButtonStyle _buttonStyle = ElevatedButton.styleFrom(
     backgroundColor: const Color(0xFF2B2B2B),
     foregroundColor: Colors.white,
-    padding: const EdgeInsets.symmetric(vertical: 18),
+    padding: const EdgeInsets.symmetric(vertical: 10),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     elevation: 4,
   );
@@ -59,7 +59,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
@@ -77,13 +77,13 @@ class _LoginFormState extends State<LoginForm> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 15),
 
           printErrorText(_loginErrorMessage),
           const SizedBox(height: 10),
 
           inputField("Email", _emailController),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
 
           inputField("Password", _passwordController, obscureText_: true),
           const SizedBox(height: 32),

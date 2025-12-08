@@ -20,7 +20,7 @@ class _LinguaNavigationBarState extends State<LinguaNavigationBar> {
       ),
       child: BottomAppBar(
         padding: const EdgeInsets.only(left: 40, right: 40),
-        height: 100,
+        height: 65,
         shape: const CircularNotchedRectangle(),
         color: navbarColor,
         child: Row(

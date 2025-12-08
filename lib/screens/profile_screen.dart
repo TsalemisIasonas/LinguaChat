@@ -45,69 +45,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
         appBar: linguaAppBar(title_: "Profile"),
 
-        body: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const SizedBox(height: 60),
-
-                  ProfileBanner(
-                    username: currentUser.username,
-                    userLevel: currentUser.level.name,
-                    avatarPath: currentUser.profilePicturePath,
-                    onNameChanged: (newName) {
-                      setState(() {});
-                      currentUser.username = newName;
-                      UserRepository().addOrUpdateUser(currentUser);
-                    },
-                    onAvatarChanged: (newAvatar) {
-                      setState(() {
-                        currentUser.profilePicturePath = newAvatar;
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    ProfileBanner(
+                      username: currentUser.username,
+                      userLevel: currentUser.level.name,
+                      avatarPath: currentUser.profilePicturePath,
+                      onNameChanged: (newName) {
+                        setState(() {});
+                        currentUser.username = newName;
                         UserRepository().addOrUpdateUser(currentUser);
-                      });
-                    },
-                  ),
+                      },
+                      onAvatarChanged: (newAvatar) {
+                        setState(() {
+                          currentUser.profilePicturePath = newAvatar;
+                          UserRepository().addOrUpdateUser(currentUser);
+                        });
+                      },
+                    ),
 
-                  const SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
-                  progressCard(
-                    title: "Progress",
-                    xp: "12850",
-                    lessons: "48",
-                    rank: "#1",
-                  ),
+                    progressCard(
+                      title: "Progress",
+                      xp: "12850",
+                      lessons: "48",
+                      rank: "#1",
+                    ),
 
-                  const SizedBox(height: 24),
+                    const SizedBox(height: 24),
 
-                  progressCard(
-                    title: "More Stats",
-                    xp: "12850",
-                    lessons: "48",
-                    rank: "#1",
-                  ),
+                    progressCard(
+                      title: "More Stats",
+                      xp: "12850",
+                      lessons: "48",
+                      rank: "#1",
+                    ),
 
-                  const SizedBox(height: 80),
-                ],
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(bottom: 80),
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(context, SettingsScreen.route());
-                },
-                style: _buttonStyle,
-                icon: const Icon(Icons.settings, size: 22),
-                label: const Text(
-                  'Settings',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    const SizedBox(height: 80),
+                  ],
                 ),
               ),
-            ),
-          ],
+
+              Padding(
+                padding: const EdgeInsets.only(bottom: 80),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(context, SettingsScreen.route());
+                  },
+                  style: _buttonStyle,
+                  icon: const Icon(Icons.settings, size: 22),
+                  label: const Text(
+                    'Settings',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
 
         bottomNavigationBar: const LinguaNavigationBar(),
