@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lingua_chat/screens/speaking_screen.dart';
 
 class TypingBar extends StatefulWidget {
-  const TypingBar({super.key});
+  final Function(String message) onSend;   // <-- Added callback
+
+  const TypingBar({super.key, required this.onSend});
 
   @override
   State<TypingBar> createState() => _TypingBarState();
@@ -27,9 +29,12 @@ class _TypingBarState extends State<TypingBar> {
   }
 
   void _sendMessage() {
-    if (_messageController.text.trim().isNotEmpty) {
-      // Handle sending message
-      _messageController.clear();
+    final text = _messageController.text.trim();
+
+    if (text.isNotEmpty) {
+      widget.onSend(text);         // <-- send message to ChatScreen
+      print('\n\n\n\n\n\nmessage sent\n\n\n\n\n\n\n');
+      _messageController.clear();  // <-- keep UI same
     }
   }
 
@@ -62,8 +67,9 @@ class _TypingBarState extends State<TypingBar> {
               ),
             ),
           ),
+
           const SizedBox(width: 8),
-          
+
           // Text input field
           Expanded(
             child: TextField(
@@ -82,9 +88,9 @@ class _TypingBarState extends State<TypingBar> {
               onSubmitted: (_) => _sendMessage(),
             ),
           ),
-          
+
           const SizedBox(width: 8),
-          
+
           // Send button
           GestureDetector(
             onTap: _sendMessage,
