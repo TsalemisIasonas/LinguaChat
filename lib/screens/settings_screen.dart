@@ -30,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
 
-        appBar: linguaAppBar(title_: "Settings"),
+        appBar: linguaAppBar(title_: "Settings",context: context),
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,

@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: LinguaFloatingActionButton(),
         ),
 
-        appBar: linguaAppBar(title_: "Profile"),
+        appBar: linguaAppBar(title_: "Profile", context: context),
 
         body: SafeArea(
           child: Column(
