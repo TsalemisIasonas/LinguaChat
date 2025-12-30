@@ -1,6 +1,13 @@
 import 'package:audioplayers/audioplayers.dart';
 
-enum AppSound { click, error, intro }
+enum AppSound {
+  click('sounds/click.mp3'),
+  error('sounds/error.mp3'),
+  intro('sounds/intro.mp3');
+
+  final String path;
+  const AppSound(this.path);
+}
 
 class SoundService {
   SoundService._internal();
@@ -18,18 +25,10 @@ class SoundService {
 
   bool get isEnabled => _enabled;
 
-  static const Map<AppSound, String> _paths = {
-    AppSound.click: 'sounds/pop.mp3',
-    AppSound.error: 'sounds/error.mp3',
-    AppSound.intro: 'sounds/intro.mp3',
-  };
-
   Future<void> play(AppSound sound) async {
     if (!_enabled) return;
 
-    final path = _paths[sound];
-    if (path == null) return;
-    await _player.play(AssetSource(path));
+    await _player.play(AssetSource(sound.path));
   }
 }
 
