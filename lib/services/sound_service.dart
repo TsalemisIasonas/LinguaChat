@@ -1,6 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 
-enum AppSound { click, error }
+enum AppSound { click, error, intro }
 
 class SoundService {
   SoundService._internal();
@@ -21,6 +21,7 @@ class SoundService {
   static const Map<AppSound, String> _paths = {
     AppSound.click: 'sounds/pop-sound.mp3',
     AppSound.error: 'sounds/error.mp3',
+    AppSound.intro: 'sounds/intro.mp3',
   };
 
   Future<void> play(AppSound sound) async {
