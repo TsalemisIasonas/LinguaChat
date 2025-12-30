@@ -9,9 +9,10 @@ class LinguaFloatingActionButton extends StatelessWidget {
     return FloatingActionButton(
         shape: const CircleBorder(),
         onPressed: () {
-          Navigator.push(
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const HomeScreen()),
+            (route) => false,
           );
         },
         backgroundColor: Colors.white,

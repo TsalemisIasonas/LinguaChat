@@ -23,7 +23,7 @@ class LeaderboardScreen extends StatelessWidget {
           child: LinguaFloatingActionButton(),
         ),
 
-        appBar: linguaAppBar(title_: 'Leaderboard'),
+        appBar: linguaAppBar(title_: 'Leaderboard', context: context),
 
         body: LeaderboardWidget(),
 
