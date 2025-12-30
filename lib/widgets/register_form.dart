@@ -37,6 +37,8 @@ class _LoginFormState extends State<RegisterForm> {
         password: _passwordController.text.trim(),
       );
 
+      if (!mounted) return;
+
       UserRepository().createDefaultUser(newUserEmail);
       Navigator.pushAndRemoveUntil(
         context,
