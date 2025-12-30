@@ -40,7 +40,7 @@ class _LoginFormState extends State<RegisterForm> {
       UserRepository().createDefaultUser(newUserEmail);
       if (!mounted) return;
 
-      await AppSound.intro.play();
+      AppSound.intro.play();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const HomeScreen()),
