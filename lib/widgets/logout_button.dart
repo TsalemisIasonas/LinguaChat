@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:lingua_chat/screens/log_in_screen.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 
 Widget logoutButton(BuildContext context) {
   return SizedBox(
     child: ElevatedButton(
       onPressed: () async {
+        AppSound.click.play();
         await FirebaseAuth.instance.signOut();
 
         Navigator.pushAndRemoveUntil(

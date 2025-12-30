@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:lingua_chat/constants/types.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 
 /// This button takes tree parameters.
 /// The label it displays.
@@ -12,7 +13,7 @@ Widget levelButton({
   required VoidCallback onTap,
 }) {
   return GestureDetector(
-    onTap: onTap,
+    onTap: () => {AppSound.click.play(), onTap},
     child: AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
