@@ -15,7 +15,7 @@ Widget levelButton({
   return GestureDetector(
     onTap: () {
       AppSound.click.play();
-      onTap;
+      onTap();
     },
     child: AnimatedContainer(
       duration: const Duration(milliseconds: 200),
