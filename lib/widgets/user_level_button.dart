@@ -13,7 +13,10 @@ Widget levelButton({
   required VoidCallback onTap,
 }) {
   return GestureDetector(
-    onTap: () => {AppSound.click.play(), onTap},
+    onTap: () {
+      AppSound.click.play();
+      onTap;
+    },
     child: AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
