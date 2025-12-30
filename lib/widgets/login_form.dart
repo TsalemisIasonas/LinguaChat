@@ -38,8 +38,9 @@ class _LoginFormState extends State<LoginForm> {
       );
 
       currentUser = await UserRepository().getUser(userEmail);
-
       if (!mounted) return;
+
+      AppSound.intro.play();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const HomeScreen()),

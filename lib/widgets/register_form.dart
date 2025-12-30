@@ -37,9 +37,10 @@ class _LoginFormState extends State<RegisterForm> {
         password: _passwordController.text.trim(),
       );
 
+      UserRepository().createDefaultUser(newUserEmail);
       if (!mounted) return;
 
-      UserRepository().createDefaultUser(newUserEmail);
+      await AppSound.intro.play();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const HomeScreen()),
