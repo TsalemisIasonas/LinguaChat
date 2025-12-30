@@ -19,7 +19,7 @@ class SoundService {
   bool get isEnabled => _enabled;
 
   static const Map<AppSound, String> _paths = {
-    AppSound.click: 'sounds/pop-sound.mp3',
+    AppSound.click: 'sounds/pop.mp3',
     AppSound.error: 'sounds/error.mp3',
     AppSound.intro: 'sounds/intro.mp3',
   };
