@@ -11,7 +11,7 @@ import 'package:lingua_chat/widgets/navigation_bar.dart';
 import 'package:lingua_chat/screens/settings_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static route() =>
+  static Route route() =>
       MaterialPageRoute(builder: (context) => const ProfileScreen());
 
   const ProfileScreen({super.key});

@@ -10,7 +10,7 @@ import 'package:lingua_chat/widgets/user_level_button.dart';
 import 'package:lingua_chat/widgets/logout_button.dart';
 
 class SettingsScreen extends StatefulWidget {
-  static route() =>
+  static Route route() =>
       MaterialPageRoute(builder: (context) => const SettingsScreen());
 
   const SettingsScreen({super.key});
@@ -30,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
 
-        appBar: linguaAppBar(title_: "Settings",context: context),
+        appBar: linguaAppBar(title_: "Settings", context: context),
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
