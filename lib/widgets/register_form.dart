@@ -5,6 +5,7 @@ import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/widgets/input_field.dart';
 import 'package:lingua_chat/widgets/print_error_text.dart';
 import 'package:lingua_chat/repositories/user_repository.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -37,6 +38,9 @@ class _LoginFormState extends State<RegisterForm> {
       );
 
       UserRepository().createDefaultUser(newUserEmail);
+      if (!mounted) return;
+
+      AppSound.intro.play();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const HomeScreen()),
@@ -45,6 +49,7 @@ class _LoginFormState extends State<RegisterForm> {
     } on FirebaseAuthException catch (e) {
       setState(() {
         _registerErrorMessage = e.message;
+        AppSound.error.play();
       });
     }
   }
@@ -99,6 +104,7 @@ class _LoginFormState extends State<RegisterForm> {
           // Register button
           ElevatedButton(
             onPressed: () async {
+              AppSound.click.play();
               if (_passwordController.text != _passwordVerifyController.text) {
                 setState(() {
                   _registerErrorMessage =
@@ -132,6 +138,7 @@ class _LoginFormState extends State<RegisterForm> {
           // Login button
           ElevatedButton(
             onPressed: () async {
+              AppSound.click.play();
               Navigator.pop(context);
             },
             style: _buttonStyle,

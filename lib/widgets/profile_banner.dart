@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:lingua_chat/services/sound_service.dart';
+
 class ProfileBanner extends StatefulWidget {
   final String username;
   final String? avatarPath;
@@ -62,12 +64,14 @@ class _ProfileBannerState extends State<ProfileBanner> {
 
     if (picked != null) {
       setState(() {
+        AppSound.click.play();
         widget.onAvatarChanged(picked);
       });
     }
   }
 
   Future<void> editName() async {
+    AppSound.click.play();
     final controller = TextEditingController(text: widget.username);
 
     final newName = await showDialog<String>(
@@ -113,7 +117,10 @@ class _ProfileBannerState extends State<ProfileBanner> {
       child: Column(
         children: [
           GestureDetector(
-            onTap: avatarPicker,
+            onTap: () {
+              AppSound.click.play();
+              avatarPicker();
+            },
             child: CircleAvatar(
               radius: 48,
               backgroundColor: const Color(0xFFE3DFFF),
@@ -129,7 +136,10 @@ class _ProfileBannerState extends State<ProfileBanner> {
           const SizedBox(height: 14),
 
           GestureDetector(
-            onTap: editName,
+            onTap: () {
+              AppSound.click.play();
+              editName();
+            },
             child: Text(
               widget.username,
               style: const TextStyle(

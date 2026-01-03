@@ -43,6 +43,7 @@ dependencies:
   location: ^8.0.1
   geolocator: ^14.0.2
   geocoding: ^4.0.0
+  audioplayers: ^6.5.1
   http: ^1.6.0
 
 dev_dependencies:
@@ -54,7 +55,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -71,6 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/lingua_avatars/
+    - assets/sounds/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:lingua_chat/models/user.dart';
 import 'package:lingua_chat/repositories/user_repository.dart';
 import 'package:lingua_chat/services/location.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 
 class LeaderboardWidget extends StatefulWidget {
   const LeaderboardWidget({super.key});
@@ -21,7 +22,7 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
 
   Future<void> _loadCity() async {
     final city = await LocationService().getCity();
-    
+
     if (!mounted) return;
 
     setState(() {
@@ -47,6 +48,7 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
+                AppSound.click.play();
                 Geolocator.openLocationSettings();
               },
               child: const Text('Open settings'),

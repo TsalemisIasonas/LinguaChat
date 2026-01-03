@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:lingua_chat/screens/chat_screen.dart';
 import 'package:lingua_chat/screens/speaking_screen.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 
 class ModeSelectButton extends StatelessWidget {
   const ModeSelectButton({super.key, required this.mode});
@@ -82,6 +83,7 @@ class ModeSelectButton extends StatelessWidget {
         ),
       ),
       onTap: () {
+        AppSound.click.play();
         mode == 'Conversation'
             ? Navigator.push(
                 context,
