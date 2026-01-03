@@ -15,19 +15,21 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
 
-      body: Stack(
-        children: [
-          const LinguaBanner(),
-          Padding(
-            padding: const EdgeInsets.only(top: 180.0),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: const LoginForm(),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            const LinguaBanner(),
+            Padding(
+              padding: const EdgeInsets.only(top: 180.0),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: const LoginForm(),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
