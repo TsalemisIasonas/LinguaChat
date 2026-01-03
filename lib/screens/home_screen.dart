@@ -13,6 +13,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final PageController _pageController = PageController(
+    viewportFraction: 0.85,
+    initialPage: 0,
+  );
+  int _currentPage = 0;
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,16 +45,61 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 200.0),
             child: Center(
-              child: SizedBox(
-                height: 300,
-                width: MediaQuery.of(context).size.width,
-                child: PageView(
-                  padEnds: true,
-                  children: const [
-                    ModeSelectButton(mode: 'Conversation'),
-                    ModeSelectButton(mode: 'Speaking'),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  SizedBox(height: 80),
+                  SizedBox(
+                    height: 300,
+                    width: MediaQuery.of(context).size.width,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                      },
+                      itemCount: 2,
+                      itemBuilder: (context, index) {
+                        return AnimatedBuilder(
+                          animation: _pageController,
+                          builder: (context, child) {
+                            double value = 1.0;
+                            if (_pageController.position.haveDimensions) {
+                              value = _pageController.page! - index;
+                              value = (1 - (value.abs() * 0.3)).clamp(0.7, 1.0);
+                            }
+                            return Center(
+                              child: SizedBox(
+                                height: Curves.easeInOut.transform(value) * 300,
+                                child: child,
+                              ),
+                            );
+                          },
+                          child: ModeSelectButton(
+                            mode: index == 0 ? 'Conversation' : 'Speaking',
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      2,
+                      (index) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        width: _currentPage == index ? 24 : 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color:  Colors.grey.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
