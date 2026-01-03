@@ -3,7 +3,8 @@ import 'package:audioplayers/audioplayers.dart';
 enum AppSound {
   click('sounds/click.mp3'),
   error('sounds/error.mp3'),
-  intro('sounds/intro.mp3');
+  intro('sounds/intro.mp3'),
+  switchSound('sounds/switch.mp3');
 
   final String path;
   const AppSound(this.path);
