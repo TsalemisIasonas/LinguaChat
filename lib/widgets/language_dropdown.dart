@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lingua_chat/constants/types.dart';
 
 Widget languageDropdown({
-  required Languages? value,
-  required ValueChanged<Languages?> onChanged,
+  required Language? value,
+  required ValueChanged<Language?> onChanged,
 }) {
   return Column(
     children: [
@@ -31,7 +31,7 @@ Widget languageDropdown({
           ],
         ),
         child: DropdownButtonHideUnderline(
-          child: DropdownButton<Languages>(
+          child: DropdownButton<Language>(
             value: value,
             hint: const Text(
               'Select language',
@@ -41,12 +41,12 @@ Widget languageDropdown({
                 color: Color(0xFF464559),
               ),
             ),
-            items: Languages.values
+            items: Language.values
                 .map(
                   (lang) => DropdownMenuItem(
                     value: lang,
                     child: Text(
-                      lang.name,
+                      lang.label,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
