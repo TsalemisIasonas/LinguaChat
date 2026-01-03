@@ -9,9 +9,10 @@ import 'package:lingua_chat/widgets/progress_card.dart';
 import 'package:lingua_chat/widgets/floating_action_button.dart';
 import 'package:lingua_chat/widgets/navigation_bar.dart';
 import 'package:lingua_chat/screens/settings_screen.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static route() =>
+  static Route route() =>
       MaterialPageRoute(builder: (context) => const ProfileScreen());
 
   const ProfileScreen({super.key});
@@ -96,6 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.only(bottom: 80),
                 child: ElevatedButton.icon(
                   onPressed: () {
+                    AppSound.click.play();
                     Navigator.push(context, SettingsScreen.route());
                   },
                   style: _buttonStyle,

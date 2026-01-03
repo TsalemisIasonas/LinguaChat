@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:lingua_chat/constants/types.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 import 'package:lingua_chat/styles/colors.dart';
 import 'package:lingua_chat/repositories/user_repository.dart';
 import 'package:lingua_chat/models/user.dart';
@@ -8,9 +9,10 @@ import 'package:lingua_chat/widgets/app_bar.dart';
 import 'package:lingua_chat/widgets/language_dropdown.dart';
 import 'package:lingua_chat/widgets/user_level_button.dart';
 import 'package:lingua_chat/widgets/logout_button.dart';
+import 'package:lingua_chat/widgets/animated_switch.dart';
 
 class SettingsScreen extends StatefulWidget {
-  static route() =>
+  static Route route() =>
       MaterialPageRoute(builder: (context) => const SettingsScreen());
 
   const SettingsScreen({super.key});
@@ -30,7 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
 
-        appBar: linguaAppBar(title_: "Settings",context: context),
+        appBar: linguaAppBar(title_: "Settings", context: context),
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -38,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset('assets/images/app_logo.png'),
-              const SizedBox(height: 100),
+              const SizedBox(height: 30),
 
               languageDropdown(
                 value: _selectedLanguage,
@@ -55,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   });
                 },
               ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 40),
 
               levelButton(
                 label: UserLevel.beginner,
@@ -91,6 +93,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   });
                 },
               ),
+              const SizedBox(height: 40),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Column(
+                  children: [
+                    animatedSwitch(
+                      label: 'Sound effects',
+                      value: SoundService().isEnabled,
+                      onChanged: (value) {
+                        setState(() {
+                          SoundService().setEnabled(value);
+                        });
+                      },
+                    ),
+                    animatedSwitch(
+                      label: 'Dark theme',
+                      value: true,
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
               const SizedBox(height: 30),
 
               logoutButton(context),

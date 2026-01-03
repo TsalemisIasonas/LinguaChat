@@ -5,7 +5,7 @@ import 'package:lingua_chat/widgets/banner.dart';
 import 'package:lingua_chat/widgets/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
-  static route() =>
+  static Route route() =>
       MaterialPageRoute(builder: (context) => const LoginScreen());
 
   const LoginScreen({super.key});

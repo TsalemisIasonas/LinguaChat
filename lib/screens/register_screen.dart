@@ -5,7 +5,7 @@ import 'package:lingua_chat/widgets/banner.dart';
 import 'package:lingua_chat/widgets/register_form.dart';
 
 class RegisterScreen extends StatelessWidget {
-  static route() =>
+  static Route route() =>
       MaterialPageRoute(builder: (context) => const RegisterScreen());
   const RegisterScreen({super.key});
 
