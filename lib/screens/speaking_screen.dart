@@ -7,7 +7,6 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:lingua_chat/models/user.dart';
-import 'package:lingua_chat/constants/types.dart';
 
 class SpeakingScreen extends StatefulWidget {
   const SpeakingScreen({super.key});
@@ -26,20 +25,6 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   bool _isProcessing = false;
   String _transcribedText = '';
 
-  String _getUserLanguageCode() {
-    switch (currentUser.language) {
-      case Languages.greek:
-        return TTSLanguageCode.greek.code;
-      case Languages.english:
-        return TTSLanguageCode.english.code;
-      case Languages.german:
-        return TTSLanguageCode.german.code;
-      case Languages.french:
-        return TTSLanguageCode.french.code;
-      case Languages.italian:
-        return TTSLanguageCode.italian.code;
-    }
-  }
 
   @override
   void initState() {
@@ -50,7 +35,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   }
 
   void _initializeTts() async {
-    String languageCode = _getUserLanguageCode();
+    String languageCode = currentUser.language.ttsCode;
     await _flutterTts.setLanguage(languageCode);
     await _flutterTts.setSpeechRate(0.5);
     await _flutterTts.setVolume(1.0);
@@ -92,7 +77,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
           _transcribedText = '';
         });
 
-        String languageCode = _getUserLanguageCode();
+        String languageCode = currentUser.language.ttsCode;
         _speech.listen(
           onResult: (result) {
             setState(() {

@@ -22,7 +22,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  Languages? _selectedLanguage = currentUser.language;
+  Language? _selectedLanguage = currentUser.language;
 
   @override
   Widget build(BuildContext context) {

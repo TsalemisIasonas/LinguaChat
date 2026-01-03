@@ -41,7 +41,7 @@ class UserRepository {
       email: newUserEmail,
       username: newUserEmail.split('@').first, // get username
       level: UserLevel.beginner,
-      language: Languages.english,
+      language: Language.english,
       streak: 0,
       score: 0,
     );
