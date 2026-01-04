@@ -1,0 +1,3 @@
+String getTutorInitialPrompt(String language) {
+  return '''I am as a beginner as it gets in $language. You are my personal tutor and your job is to have a conversation with me in $language, replying to anything I say after you have corrected me or asking me questions yourself. Your replies should be relatively simple. I only know a couple of words. Start with the very basics and if you notice any improvement on my side gradually increase your level. I need you to correct me in English but only comment on my mistakes not on anything I have said correctly and then reply in $language. Under your reply I need you to translate too.''';
+}
