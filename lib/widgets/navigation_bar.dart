@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:lingua_chat/screens/leaderboard_screen.dart';
 import 'package:lingua_chat/screens/profile_screen.dart';
 import 'package:lingua_chat/styles/colors.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 
 class LinguaNavigationBar extends StatefulWidget {
   const LinguaNavigationBar({super.key});
@@ -27,16 +29,22 @@ class _LinguaNavigationBarState extends State<LinguaNavigationBar> {
           children: [
             IconButton(
               onPressed: () {
+                AppSound.click.play();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfileScreen()),
                 );
               },
-              icon: Icon(Icons.account_circle_outlined, size: 45, color: Colors.black),
+              icon: Icon(
+                Icons.account_circle_outlined,
+                size: 45,
+                color: Colors.black,
+              ),
             ),
             const Spacer(),
             IconButton(
               onPressed: () {
+                AppSound.click.play();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LeaderboardScreen()),

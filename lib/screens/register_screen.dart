@@ -5,7 +5,7 @@ import 'package:lingua_chat/widgets/banner.dart';
 import 'package:lingua_chat/widgets/register_form.dart';
 
 class RegisterScreen extends StatelessWidget {
-  static route() =>
+  static Route route() =>
       MaterialPageRoute(builder: (context) => const RegisterScreen());
   const RegisterScreen({super.key});
 
@@ -14,19 +14,21 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
 
-      body: Stack(
-        children: [
-          const LinguaBanner(),
-          Padding(
-            padding: const EdgeInsets.only(top: 200.0),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: const RegisterForm(),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            const LinguaBanner(),
+            Padding(
+              padding: const EdgeInsets.only(top: 200.0),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: const RegisterForm(),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -5,7 +5,7 @@ LinguaUser currentUser = LinguaUser(
   email: '',
   username: '',
   level: UserLevel.beginner,
-  language: Languages.english,
+  language: Language.english,
   streak: 0,
   profilePicturePath: null,
   locationCity: null,
@@ -18,7 +18,7 @@ class LinguaUser {
   String username;
 
   UserLevel level;
-  Languages language;
+  Language language;
 
   String? profilePicturePath;
 
@@ -44,7 +44,7 @@ class LinguaUser {
       'email': email,
       'username': username,
       'level': level.name,
-      'language': language.name,
+      'language': language.label,
       'streak': streak,
       'profilePicturePath': profilePicturePath,
       'locationCity': locationCity,
@@ -58,7 +58,7 @@ class LinguaUser {
       email: firestoreData['email'],
       username: firestoreData['username'],
       level: UserLevel.values.byName(firestoreData['level']),
-      language: Languages.values.byName(firestoreData['language']),
+      language: Language.fromString(firestoreData['language']),
       streak: firestoreData['streak'],
       profilePicturePath: firestoreData['profilePicturePath'] as String?,
       locationCity: firestoreData['locationCity'],
