@@ -7,6 +7,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:lingua_chat/models/user.dart';
+import 'package:lingua_chat/constants/prompts.dart';
 
 class SpeakingScreen extends StatefulWidget {
   const SpeakingScreen({super.key});
@@ -18,11 +19,14 @@ class SpeakingScreen extends StatefulWidget {
 class _SpeakingScreenState extends State<SpeakingScreen> {
   final List<ChatMessage> messages = [];
   final OpenAIService openAI = OpenAIService();
+  final List<Map<String, String>> conversationHistory = [];
   
   late stt.SpeechToText _speech;
   late FlutterTts _flutterTts;
   bool _isListening = false;
   bool _isProcessing = false;
+  bool _isSpeaking = false;
+  bool _isFirstMessage = true;
   String _transcribedText = '';
 
 
@@ -32,6 +36,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
     _speech = stt.SpeechToText();
     _flutterTts = FlutterTts();
     _initializeTts();
+    _initializeConversation();
   }
 
   void _initializeTts() async {
@@ -40,20 +45,45 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
     await _flutterTts.setSpeechRate(0.5);
     await _flutterTts.setVolume(1.0);
     await _flutterTts.setPitch(1.0);
+    
+    // Set up callback when TTS finishes speaking
+    _flutterTts.setCompletionHandler(() {
+      setState(() {
+        _isSpeaking = false;
+      });
+    });
+  }
+
+  void _initializeConversation() {
+    // Add the initial tutor prompt to conversation history
+    final initialPrompt = getTutorInitialPrompt(currentUser.language.label);
+    conversationHistory.add({
+      "role": "system",
+      "content": initialPrompt,
+    });
   }
 
   Future<void> _toggleListening() async {
+    // If currently speaking, stop it
+    if (_isSpeaking) {
+      await _flutterTts.stop();
+      setState(() {
+        _isSpeaking = false;
+      });
+      return;
+    }
+
     if (_isListening) {
-      // Stop listening
       await _speech.stop();
       setState(() {
         _isListening = false;
       });
       
-      // If we have transcribed text, send it to API
       if (_transcribedText.isNotEmpty) {
         await _processAndSpeak(_transcribedText);
-        _transcribedText = '';
+        setState(() {
+          _transcribedText = '';
+        });
       }
     } else {
       // Request microphone permission
@@ -101,11 +131,28 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
     });
 
     try {
-      // Get response from API
-      final response = await openAI.sendMessage(text);
+      // Add user message to conversation history
+      conversationHistory.add({
+        "role": "user",
+        "content": text,
+      });
+
+      // Get response from API with conversation history
+      final response = await openAI.sendMessage(
+        text,
+        conversationHistory: conversationHistory,
+      );
+      
+      // Add assistant response to conversation history
+      conversationHistory.add({
+        "role": "assistant",
+        "content": response,
+      });
       
       setState(() {
         messages.add(ChatMessage(text: response, type: MessageType.received));
+        _isProcessing = false;
+        _isSpeaking = true;
       });
 
       // Speak the response
@@ -115,7 +162,6 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: ${e.toString()}')),
       );
-    } finally {
       setState(() {
         _isProcessing = false;
       });
@@ -214,23 +260,23 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
                 const SizedBox(height: 16),
                 
                 // Transcribed text
-                if (_transcribedText.isNotEmpty)
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 24),
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      _transcribedText,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                // if (_transcribedText.isNotEmpty)
+                //   Container(
+                //     margin: const EdgeInsets.symmetric(horizontal: 24),
+                //     padding: const EdgeInsets.all(16),
+                //     decoration: BoxDecoration(
+                //       color: Colors.white.withOpacity(0.2),
+                //       borderRadius: BorderRadius.circular(12),
+                //     ),
+                //     child: Text(
+                //       _transcribedText,
+                //       style: const TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 16,
+                //       ),
+                //       textAlign: TextAlign.center,
+                //     ),
+                //   ),
               ],
             ),
           ),

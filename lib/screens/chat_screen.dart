@@ -3,7 +3,9 @@ import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/styles/colors.dart';
 import 'package:lingua_chat/widgets/typing_bar.dart';
 import 'package:lingua_chat/models/chat_message.dart';
+import 'package:lingua_chat/models/user.dart';
 import 'package:lingua_chat/services/openai_service.dart';
+import 'package:lingua_chat/constants/prompts.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -16,15 +18,68 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<ChatMessage> messages = [];
   final ScrollController scrollController = ScrollController();
   final OpenAIService openAI = OpenAIService();
+  final List<Map<String, String>> conversationHistory = [];
+  bool isFirstMessage = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Send the initial prompt automatically when the screen loads
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _sendInitialPrompt();
+    });
+  }
+
+  void _sendInitialPrompt() async {
+    final initialPrompt = getTutorInitialPrompt(currentUser.language.label);
+    
+    conversationHistory.add({
+      "role": "system",
+      "content": initialPrompt,
+    });
+
+    // Get the AI's first greeting
+    final response = await openAI.sendMessage(
+      initialPrompt,
+      conversationHistory: conversationHistory,
+    );
+
+    conversationHistory.add({
+      "role": "assistant",
+      "content": response,
+    });
+
+    setState(() {
+      messages.add(ChatMessage(text: response, type: MessageType.received));
+      isFirstMessage = false;
+    });
+
+    scrollToBottom();
+  }
 
   void sendMessage(String text) async {
     setState(() {
       messages.add(ChatMessage(text: text, type: MessageType.sent));
     });
 
+    // Add user message to conversation history
+    conversationHistory.add({
+      "role": "user",
+      "content": text,
+    });
+
     scrollToBottom();
 
-    final response = await openAI.sendMessage(text);
+    final response = await openAI.sendMessage(
+      text,
+      conversationHistory: conversationHistory,
+    );
+
+    // Add assistant response to conversation history
+    conversationHistory.add({
+      "role": "assistant",
+      "content": response,
+    });
 
     setState(() {
       messages.add(ChatMessage(text: response, type: MessageType.received));
@@ -46,10 +101,10 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: gradientColorStart,
         elevation: 0,
         title: const Text('Conversation'),
         actions: [

@@ -1,12 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:lingua_chat/config/api_keys.dart';
 
 class OpenAIService {
-  // IMPORTANT: Replace this with your actual API key
-  final String apiKey = "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";
+  final String apiKey = openAiApiKey;
 
-  Future<String> sendMessage(String message) async {
+  Future<String> sendMessage(String message, {List<Map<String, String>>? conversationHistory}) async {
     final url = Uri.parse("https://api.openai.com/v1/chat/completions");
+
+    // Build messages array - use conversation history if provided, otherwise single message
+    final messages = conversationHistory ?? [
+      {"role": "user", "content": message}
+    ];
 
     final response = await http.post(
       url,
@@ -15,10 +20,8 @@ class OpenAIService {
         "Authorization": "Bearer $apiKey",
       },
       body: jsonEncode({
-        "model": "gpt-4o-mini",   // Works and is cheap
-        "messages": [
-          {"role": "user", "content": message}
-        ],
+        "model": "gpt-4o-mini", 
+        "messages": messages,
       }),
     );
 
