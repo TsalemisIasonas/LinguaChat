@@ -74,13 +74,11 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
     }
 
     if (_isListening) {
-      // Stop listening
       await _speech.stop();
       setState(() {
         _isListening = false;
       });
       
-      // If we have transcribed text, send it to API
       if (_transcribedText.isNotEmpty) {
         await _processAndSpeak(_transcribedText);
         setState(() {
