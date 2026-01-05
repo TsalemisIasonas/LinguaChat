@@ -31,7 +31,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _sendInitialPrompt() async {
-    final initialPrompt = getTutorInitialPrompt(currentUser.language.name);
+    final initialPrompt = getTutorInitialPrompt(currentUser.language.label);
     
     conversationHistory.add({
       "role": "system",

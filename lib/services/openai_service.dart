@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:lingua_chat/config/api_keys.dart';
 
 class OpenAIService {
-  final String apiKey = "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";
+  final String apiKey = openAiApiKey;
 
   Future<String> sendMessage(String message, {List<Map<String, String>>? conversationHistory}) async {
     final url = Uri.parse("https://api.openai.com/v1/chat/completions");
