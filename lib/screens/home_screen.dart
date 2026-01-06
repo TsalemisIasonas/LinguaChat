@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lingua_chat/models/user.dart';
+import 'package:lingua_chat/repositories/user_repository.dart';
 import 'package:lingua_chat/styles/colors.dart';
 import 'package:lingua_chat/widgets/floating_action_button.dart';
 import 'package:lingua_chat/widgets/banner.dart';
@@ -23,6 +26,20 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserOnStartup();
+  }
+
+  Future<void> _loadUserOnStartup() async {
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+
+    if (firebaseUser != null && firebaseUser.email != null) {
+      currentUser = await UserRepository().getUser(firebaseUser.email!);
+    }
   }
 
   @override
@@ -93,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: _currentPage == index ? 24 : 8,
                         height: 8,
                         decoration: BoxDecoration(
-                          color:  Colors.grey.withOpacity(0.3),
+                          color: Colors.grey.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
