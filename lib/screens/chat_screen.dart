@@ -31,16 +31,17 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _sendInitialPrompt() async {
-    final initialPrompt = getTutorInitialPrompt(currentUser.language.label);
+    final initialPrompt = getTutorInitialPrompt(currentUser.language.label, currentUser.level.name);
     
     conversationHistory.add({
       "role": "system",
       "content": initialPrompt,
     });
 
+
     // Get the AI's first greeting
     final response = await openAI.sendMessage(
-      initialPrompt,
+      "Hello",
       conversationHistory: conversationHistory,
     );
 
@@ -105,7 +106,8 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: gradientColorStart,
-        elevation: 0,
+        elevation: 1,
+        shadowColor: Colors.black,
         title: const Text('Conversation'),
         actions: [
           IconButton(
@@ -134,7 +136,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
           /// Chat messages
           Padding(
-            padding: const EdgeInsets.only(bottom: 70),
+            padding: const EdgeInsets.only(bottom: 100, left: 10, right: 10),
             child: ListView.builder(
               controller: scrollController,
               itemCount: messages.length,
@@ -163,6 +165,8 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
+
+          SizedBox(height: 100),
 
           /// Typing input bar
           Positioned(

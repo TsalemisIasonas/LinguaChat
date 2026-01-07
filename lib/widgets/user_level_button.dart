@@ -34,7 +34,7 @@ Widget levelButton({
         ],
       ),
       child: Text(
-        label.name,
+        label.name[0].toUpperCase() + label.name.substring(1),
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,

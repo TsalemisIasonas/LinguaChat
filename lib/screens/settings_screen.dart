@@ -29,7 +29,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       decoration: backgroundGradient,
       child: Scaffold(
-        extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: false,
         backgroundColor: Colors.transparent,
 
         appBar: linguaAppBar(title_: "Settings", context: context),
@@ -40,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset('assets/images/app_logo.png'),
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
 
               languageDropdown(
                 value: _selectedLanguage,
@@ -57,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   });
                 },
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
 
               levelButton(
                 label: UserLevel.beginner,

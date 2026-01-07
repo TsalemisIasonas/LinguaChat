@@ -45,4 +45,4 @@ app.*.map.json
 /android/app/release
 
 # API Keys - keep sensitive data private
-lib/config/api_keys.dart
+/lib/config/api_keys.dart

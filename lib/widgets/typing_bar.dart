@@ -44,7 +44,10 @@ class _TypingBarState extends State<TypingBar> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black,
