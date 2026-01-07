@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:lingua_chat/screens/home_screen.dart';
+import 'package:lingua_chat/screens/initial_screen.dart';
 import 'package:lingua_chat/widgets/input_field.dart';
 import 'package:lingua_chat/widgets/print_error_text.dart';
 import 'package:lingua_chat/repositories/user_repository.dart';
@@ -43,7 +43,7 @@ class _LoginFormState extends State<RegisterForm> {
       AppSound.intro.play();
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(builder: (_) => const InitialScreen()),
         (route) => false,
       );
     } on FirebaseAuthException catch (e) {

@@ -56,7 +56,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
 
   void _initializeConversation() {
     // Add the initial tutor prompt to conversation history
-    final initialPrompt = getTutorInitialPrompt(currentUser.language.label);
+    final initialPrompt = getTutorInitialPrompt(currentUser.language.label, currentUser.level.name);
     conversationHistory.add({
       "role": "system",
       "content": initialPrompt,
