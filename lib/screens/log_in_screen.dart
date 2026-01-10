@@ -20,10 +20,10 @@ class LoginScreen extends StatelessWidget {
           children: [
             const LinguaBanner(),
             Padding(
-              padding: const EdgeInsets.only(top: 180.0),
+              padding: const EdgeInsets.only(top: 260.0),
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(40.0),
+                  padding: const EdgeInsets.all(50.0),
                   child: const LoginForm(),
                 ),
               ),

@@ -65,6 +65,7 @@ class _LoginFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 550,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -74,78 +75,96 @@ class _LoginFormState extends State<RegisterForm> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'Register',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 15),
-
-          printErrorText(_registerErrorMessage),
-          const SizedBox(height: 10),
-
-          inputField("Email", _emailController),
-          const SizedBox(height: 20),
-
-          inputField("Password", _passwordController, obscureText_: true),
-          const SizedBox(height: 12),
-
-          inputField(
-            "Verify Password",
-            _passwordVerifyController,
-            obscureText_: true,
-          ),
-          const SizedBox(height: 32),
-
-          // Register button
-          ElevatedButton(
-            onPressed: () async {
-              AppSound.click.play();
-              if (_passwordController.text != _passwordVerifyController.text) {
-                setState(() {
-                  _registerErrorMessage =
-                      "Password wasn't the same both times!";
-                });
-
-                return;
-              }
-
-              await registerUserWithEmailAndPassword();
-            },
-            style: _buttonStyle,
-            child: const Text(
-              'Register',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    'Register',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 15),
+        
+                  printErrorText(_registerErrorMessage),
+                  const SizedBox(height: 10),
+        
+                  inputField("Email", _emailController),
+                  const SizedBox(height: 20),
+        
+                  inputField("Password", _passwordController, obscureText_: true),
+                  const SizedBox(height: 12),
+        
+                  inputField(
+                    "Verify Password",
+                    _passwordVerifyController,
+                    obscureText_: true,
+                  ),
+                  const SizedBox(height: 32),
+                ],
+              ),
             ),
           ),
-
-          const SizedBox(height: 10),
-          const Text(
-            'Already have an account?',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-
-          // Login button
-          ElevatedButton(
-            onPressed: () async {
-              AppSound.click.play();
-              Navigator.pop(context);
-            },
-            style: _buttonStyle,
-            child: const Text(
-              'Log In',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
+          
+          const Divider(height: 20, thickness: 1),
+          
+          // Buttons section
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Register button
+              ElevatedButton(
+                onPressed: () async {
+                  AppSound.click.play();
+                  if (_passwordController.text != _passwordVerifyController.text) {
+                    setState(() {
+                      _registerErrorMessage =
+                          "Password wasn't the same both times!";
+                    });
+        
+                    return;
+                  }
+        
+                  await registerUserWithEmailAndPassword();
+                },
+                style: _buttonStyle,
+                child: const Text(
+                  'Register',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+              ),
+        
+              const SizedBox(height: 10),
+              const Text(
+                'Already have an account?',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+        
+              // Login button
+              ElevatedButton(
+                onPressed: () async {
+                  AppSound.click.play();
+                  Navigator.pop(context);
+                },
+                style: _buttonStyle,
+                child: const Text(
+                  'Log In',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
           ),
         ],
       ),

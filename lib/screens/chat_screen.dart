@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/styles/colors.dart';
+import 'package:lingua_chat/styles/text_styles.dart';
 import 'package:lingua_chat/widgets/typing_bar.dart';
 import 'package:lingua_chat/models/chat_message.dart';
 import 'package:lingua_chat/models/user.dart';
 import 'package:lingua_chat/services/openai_service.dart';
 import 'package:lingua_chat/constants/prompts.dart';
+import 'package:lingua_chat/repositories/user_repository.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -61,6 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void sendMessage(String text) async {
     setState(() {
       messages.add(ChatMessage(text: text, type: MessageType.sent));
+      currentUser.totalMessages++;
     });
 
     // Add user message to conversation history
@@ -75,6 +78,16 @@ class _ChatScreenState extends State<ChatScreen> {
       text,
       conversationHistory: conversationHistory,
     );
+    
+    // Check if response contains a correction (starts with NOTE:)
+    if (response.trim().startsWith('NOTE:')) {
+      setState(() {
+        currentUser.messagesWithCorrections++;
+      });
+    }
+    
+    // Save updated stats to database
+    UserRepository().addOrUpdateUser(currentUser);
 
     // Add assistant response to conversation history
     conversationHistory.add({
@@ -108,7 +121,11 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: gradientColorStart,
         elevation: 1,
         shadowColor: Colors.black,
-        title: const Text('Conversation'),
+        title: Column(
+          children: [
+            const Text('Conversation', style: AppTextStyles.appBarTextStyle,),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.home),
@@ -134,9 +151,18 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
 
+          Center(
+            child: Image.asset(  
+              'assets/images/app_logo.png',
+              fit: BoxFit.cover,
+              width: 300,
+              height: 300,
+            ),
+          ),
+
           /// Chat messages
           Padding(
-            padding: const EdgeInsets.only(bottom: 100, left: 10, right: 10),
+            padding: const EdgeInsets.only(bottom: 100, left: 10, right: 10, top: 20),
             child: ListView.builder(
               controller: scrollController,
               itemCount: messages.length,
@@ -158,7 +184,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     child: Text(
                       msg.text,
-                      style: const TextStyle(color: Colors.white),
+                      style: AppTextStyles.messageTextStyle,
                     ),
                   ),
                 );

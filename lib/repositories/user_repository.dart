@@ -44,6 +44,9 @@ class UserRepository {
       language: Language.english,
       streak: 0,
       score: 0,
+      totalMessages: 0,
+      messagesWithCorrections: 0,
+      lessonsStarted: 0,
     );
 
     addOrUpdateUser(newUser);

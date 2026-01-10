@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lingua_chat/firebase_options.dart';
 import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/screens/log_in_screen.dart';
+import 'package:lingua_chat/styles/text_styles.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,7 @@ class LinguaChatApp extends StatelessWidget {
       title: 'Lingua Chat',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: AppTextStyles.fontFamily,
       ),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),

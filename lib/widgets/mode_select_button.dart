@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lingua_chat/screens/chat_screen.dart';
 import 'package:lingua_chat/screens/speaking_screen.dart';
 import 'package:lingua_chat/services/sound_service.dart';
+import 'package:lingua_chat/models/user.dart';
+import 'package:lingua_chat/repositories/user_repository.dart';
+import 'package:lingua_chat/styles/text_styles.dart';
 
 class ModeSelectButton extends StatelessWidget {
   const ModeSelectButton({super.key, required this.mode});
@@ -45,18 +48,7 @@ class ModeSelectButton extends StatelessWidget {
                   children: [
                     Text(
                       mode,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(0, 2),
-                            blurRadius: 4,
-                            color: Colors.black45,
-                          ),
-                        ],
-                      ),
+                      style: AppTextStyles.carouselTextStyle
                     ),
                     Text(
                       mode == 'Conversation'
@@ -84,6 +76,11 @@ class ModeSelectButton extends StatelessWidget {
       ),
       onTap: () {
         AppSound.click.play();
+        
+        // Increment lessons counter
+        currentUser.lessonsStarted++;
+        UserRepository().addOrUpdateUser(currentUser);
+        
         mode == 'Conversation'
             ? Navigator.push(
                 context,

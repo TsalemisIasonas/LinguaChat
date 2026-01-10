@@ -45,11 +45,11 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
     
     // Set speech rate based on language
     double speechRate = switch (languageCode) {
-      'it-IT' => 1.5,      // Italian - faster
-      'fr-FR' => 0.8,      // French - slower
-      'de-DE' => 1.0,      // German - normal
-      'en-US' => 1.0,      // English - normal
-      _ => 1.0,            // Default - normal
+      'it-IT' => 0.6,      
+      'fr-FR' => 0.6,      
+      'de-DE' => 0.6,      
+      'en-US' => 0.6,      
+      _ => 0.6,            
     };
     
     await _flutterTts.setSpeechRate(speechRate);

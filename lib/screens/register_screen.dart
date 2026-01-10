@@ -19,10 +19,10 @@ class RegisterScreen extends StatelessWidget {
           children: [
             const LinguaBanner(),
             Padding(
-              padding: const EdgeInsets.only(top: 200.0),
+              padding: const EdgeInsets.only(top: 300.0),
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(40.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: const RegisterForm(),
                 ),
               ),

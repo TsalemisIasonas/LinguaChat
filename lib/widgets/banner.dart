@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lingua_chat/styles/colors.dart';
+import 'package:lingua_chat/styles/text_styles.dart';
 
 class LinguaBanner extends StatelessWidget {
   const LinguaBanner({super.key});
@@ -19,21 +20,32 @@ class LinguaBanner extends StatelessWidget {
               gradientColorStart,
               gradientColorEnd,
             ],
-            stops: [0.1, 0.3],
+            stops: [0.05, 0.7],
           ),
         ),
         child: const Padding(
-          padding: EdgeInsets.only(top: 120.0),
-          child: Text(
-            'LINGUA\n\t\t\t\t\t\t\tCHAT',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 50,
-              fontWeight: FontWeight.w400,
-              color: Colors.white,
-              height: 1.2,
-              letterSpacing: 2,
-            ),
+          padding: EdgeInsets.only(top: 150.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 60.0),
+                child: Text(
+                  'LINGUA',
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.heading1
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 170.0),
+                child: Text(
+                  'CHAT',
+                  textAlign: TextAlign.end,
+                  style: AppTextStyles.heading1
+                ),
+              ),
+            ],
           ),
         ),
       ),

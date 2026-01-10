@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: SizedBox(
         width: 80,
         height: 80,
-        child: LinguaFloatingActionButton(),
+        child: LinguaFloatingActionButton(currentScreen: 'home'),
       ),
 
       appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
@@ -60,11 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const LinguaBanner(),
           Padding(
-            padding: const EdgeInsets.only(top: 200.0),
+            padding: const EdgeInsets.only(top: 250.0),
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(height: 80),
+                  SizedBox(height: 120),
                   SizedBox(
                     height: 300,
                     width: MediaQuery.of(context).size.width,
@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
 
-      bottomNavigationBar: const LinguaNavigationBar(),
+      bottomNavigationBar: const LinguaNavigationBar(currentScreen: 'home'),
     );
   }
 }
