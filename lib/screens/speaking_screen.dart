@@ -42,7 +42,17 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   void _initializeTts() async {
     String languageCode = currentUser.language.ttsCode;
     await _flutterTts.setLanguage(languageCode);
-    await _flutterTts.setSpeechRate(0.5);
+    
+    // Set speech rate based on language
+    double speechRate = switch (languageCode) {
+      'it-IT' => 1.5,      // Italian - faster
+      'fr-FR' => 0.8,      // French - slower
+      'de-DE' => 1.0,      // German - normal
+      'en-US' => 1.0,      // English - normal
+      _ => 1.0,            // Default - normal
+    };
+    
+    await _flutterTts.setSpeechRate(speechRate);
     await _flutterTts.setVolume(1.0);
     await _flutterTts.setPitch(1.0);
     
@@ -56,7 +66,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
 
   void _initializeConversation() {
     // Add the initial tutor prompt to conversation history
-    final initialPrompt = getTutorInitialPrompt(currentUser.language.label, currentUser.level.name);
+    final initialPrompt = getSpeakingInitialPrompt(currentUser.language.label, currentUser.level.name);
     conversationHistory.add({
       "role": "system",
       "content": initialPrompt,
@@ -64,6 +74,15 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   }
 
   Future<void> _toggleListening() async {
+    // If processing, stop everything
+    if (_isProcessing) {
+      setState(() {
+        _isProcessing = false;
+        _transcribedText = '';
+      });
+      return;
+    }
+
     // If currently speaking, stop it
     if (_isSpeaking) {
       await _flutterTts.stop();
@@ -74,16 +93,32 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
     }
 
     if (_isListening) {
+      // Stop listening and wait for final transcription
       await _speech.stop();
-      setState(() {
-        _isListening = false;
-      });
+      
+      // Give speech recognition time to finalize the transcription
+      await Future.delayed(const Duration(milliseconds: 500));
       
       if (_transcribedText.isNotEmpty) {
-        await _processAndSpeak(_transcribedText);
+        final textToProcess = _transcribedText;
         setState(() {
+          _isListening = false;
           _transcribedText = '';
+          _isProcessing = true;
         });
+        await _processAndSpeak(textToProcess);
+      } else {
+        setState(() {
+          _isListening = false;
+        });
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('No speech detected. Please speak and try again.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
       }
     } else {
       // Request microphone permission
@@ -125,8 +160,8 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   }
 
   Future<void> _processAndSpeak(String text) async {
+    // _isProcessing is already set to true before calling this function
     setState(() {
-      _isProcessing = true;
       messages.add(ChatMessage(text: text, type: MessageType.sent));
     });
 
@@ -181,8 +216,9 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: gradientColorStart,
+        elevation: 1,
+        shadowColor: Colors.black,
         title: const Text('Speaking'),
         actions: [
           IconButton(
@@ -220,63 +256,55 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
                     height: 200,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: _isListening
-                          ? Border.all(
-                              color: Colors.white,
-                              width: 4,
-                            )
-                          : null,
+                      border: Border.all(
+                        color: _isListening ? Colors.white : Colors.transparent,
+                        width: 6,
+                      ),
                     ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/images/microphone_logo.png',
-                        fit: BoxFit.cover,
+                    child: Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/microphone_logo.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 24),
                 
-                // // Status text
-                // if (_isListening)
-                //   const Text(
-                //     'Listening...',
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // if (_isProcessing)
-                //   const Text(
-                //     'Processing...',
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
+                // Status indicator
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    _isListening
+                        ? (_transcribedText.isEmpty ? '🎤 Listening...' : '🎤 "$_transcribedText"')
+                        : _isProcessing
+                            ? '⏳ Processing...'
+                            : _isSpeaking
+                                ? '🔊 Speaking...'
+                                : 'Tap to speak',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
                 
                 const SizedBox(height: 16),
                 
-                // Transcribed text
-                // if (_transcribedText.isNotEmpty)
-                //   Container(
-                //     margin: const EdgeInsets.symmetric(horizontal: 24),
-                //     padding: const EdgeInsets.all(16),
-                //     decoration: BoxDecoration(
-                //       color: Colors.white.withOpacity(0.2),
-                //       borderRadius: BorderRadius.circular(12),
-                //     ),
-                //     child: Text(
-                //       _transcribedText,
-                //       style: const TextStyle(
-                //         color: Colors.white,
-                //         fontSize: 16,
-                //       ),
-                //       textAlign: TextAlign.center,
-                //     ),
-                //   ),
+                
               ],
             ),
           ),

@@ -23,3 +23,23 @@ Translation: Leave one empty line, then provide the English translation of your 
 
 You should start the conversation by greeting me and asking a simple question like "How are you?" or "What is your name?" in $language.''';
 }
+
+String getSpeakingInitialPrompt(String language, String userLevel) {
+  String finalLevel = switch (userLevel) {
+    'Beginner' => 'a complete beginner',
+    'Intermediate' => 'an intermediate learner',
+    'Advanced' => 'an advanced learner',
+    _ => 'a language learner',
+  };
+
+  return '''Act as my conversation partner in $language. I am $finalLevel. 
+
+Your goal is to maintain a fluid, natural conversation. Follow these constraints:
+1. The user will speak first. Wait for their message and respond naturally to what they say.
+2. Respond ONLY in $language. 
+3. Do not provide any English translations, corrections, or explanations.
+4. Do not use any labels, prefixes, or notes.
+5. Keep your responses short and engaging (1-2 sentences) to facilitate a back-and-forth voice dialogue.
+6. Respond naturally to whatever topic the user brings up.
+''';
+}
