@@ -3,6 +3,7 @@ import 'package:lingua_chat/models/chat_message.dart';
 import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/services/openai_service.dart';
 import 'package:lingua_chat/styles/colors.dart';
+import 'package:lingua_chat/styles/text_styles.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -219,7 +220,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
         backgroundColor: gradientColorStart,
         elevation: 1,
         shadowColor: Colors.black,
-        title: const Text('Speaking'),
+        title: Text('Speaking', style: AppTextStyles.appBarTextStyle,),
         actions: [
           IconButton(
             icon: Icon(Icons.home),
