@@ -20,10 +20,10 @@ enum UserLevel { beginner, intermediate, advanced }
 /// - [label]: the human-readable name of the language.
 /// - [ttsCode]: the language code
 enum Language {
-  greek(label: 'Greek', ttsCode: 'el-GR'),
   english(label: 'English', ttsCode: 'en-US'),
-  german(label: 'German', ttsCode: 'de-DE'),
   french(label: 'French', ttsCode: 'fr-FR'),
+  german(label: 'German', ttsCode: 'de-DE'),
+  greek(label: 'Greek', ttsCode: 'el-GR'),
   italian(label: 'Italian', ttsCode: 'it-IT');
 
   final String label;
