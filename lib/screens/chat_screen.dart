@@ -85,6 +85,10 @@ class _ChatScreenState extends State<ChatScreen> {
         currentUser.messagesWithCorrections++;
       });
     }
+
+    setState(() {
+      currentUser.score = currentUser.lessonsStarted * 70 + (currentUser.totalMessages - currentUser.messagesWithCorrections) * 30;
+    });
     
     // Save updated stats to database
     UserRepository().addOrUpdateUser(currentUser);
@@ -114,6 +118,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
@@ -123,7 +130,7 @@ class _ChatScreenState extends State<ChatScreen> {
         shadowColor: Colors.black,
         title: Column(
           children: [
-            const Text('Conversation', style: AppTextStyles.appBarTextStyle,),
+            Text('Conversation', style: AppTextStyles.appBarTextStyle,),
           ],
         ),
         actions: [
@@ -196,7 +203,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
           /// Typing input bar
           Positioned(
-            bottom: 0,
+            bottom: bottomPadding,
             left: 0,
             right: 0,
             child: TypingBar(onSend: sendMessage),

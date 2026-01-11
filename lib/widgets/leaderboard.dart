@@ -5,6 +5,7 @@ import 'package:lingua_chat/models/user.dart';
 import 'package:lingua_chat/repositories/user_repository.dart';
 import 'package:lingua_chat/services/location.dart';
 import 'package:lingua_chat/services/sound_service.dart';
+import 'package:lingua_chat/styles/text_styles.dart';
 
 class LeaderboardWidget extends StatefulWidget {
   const LeaderboardWidget({super.key});
@@ -85,7 +86,7 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
                 padding: const EdgeInsets.all(16),
                 child: Text(
                   'Top learners in ${currentUser.locationCity}',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: AppTextStyles.heading2
                 ),
               ),
 

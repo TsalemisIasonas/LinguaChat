@@ -26,7 +26,7 @@ class _InitialScreenState extends State<InitialScreen> {
           children: [
             const LinguaBanner(),
             Padding(
-              padding: const EdgeInsets.only(top: 200.0),
+              padding: const EdgeInsets.only(top: 270.0),
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(40.0),

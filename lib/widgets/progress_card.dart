@@ -22,6 +22,7 @@ Widget progressCard({
       ],
     ),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           title,
@@ -35,11 +36,11 @@ Widget progressCard({
         const SizedBox(height: 14),
 
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            stat("Accuracy", xp),
-            stat("Lessons", lessons),
-            stat("Rank", rank),
+            Expanded(child: stat("Accuracy", xp)),
+            Expanded(child: stat("Lessons", lessons)),
+            Expanded(child: stat("Rank", rank)),
           ],
         ),
       ],
@@ -49,6 +50,7 @@ Widget progressCard({
 
 Widget stat(String label, String value) {
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Text(
         label,
