@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:lingua_chat/constants/types.dart';
 import 'package:lingua_chat/services/sound_service.dart';
+import 'package:lingua_chat/styles/text_styles.dart';
 
 /// This button takes tree parameters.
 /// The label it displays.
@@ -35,9 +36,7 @@ Widget levelButton({
       ),
       child: Text(
         label.name[0].toUpperCase() + label.name.substring(1),
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
+        style: AppTextStyles.levelButtonTextStyle.copyWith(
           color: selected == label ? Colors.white : const Color(0xFF464559),
         ),
       ),

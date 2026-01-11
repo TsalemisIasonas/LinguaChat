@@ -20,14 +20,14 @@ class LeaderboardScreen extends StatelessWidget {
         floatingActionButton: SizedBox(
           width: 80,
           height: 80,
-          child: LinguaFloatingActionButton(),
+          child: LinguaFloatingActionButton(currentScreen: 'leaderboard'),
         ),
 
         appBar: linguaAppBar(title_: 'Leaderboard', context: context),
 
         body: LeaderboardWidget(),
 
-        bottomNavigationBar: const LinguaNavigationBar(),
+        bottomNavigationBar: const LinguaNavigationBar(currentScreen: 'leaderboard'),
       ),
     );
   }

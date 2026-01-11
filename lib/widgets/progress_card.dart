@@ -37,7 +37,7 @@ Widget progressCard({
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            stat("XP", xp),
+            stat("Accuracy", xp),
             stat("Lessons", lessons),
             stat("Rank", rank),
           ],

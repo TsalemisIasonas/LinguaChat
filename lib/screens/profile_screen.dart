@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         floatingActionButton: SizedBox(
           width: 80,
           height: 80,
-          child: LinguaFloatingActionButton(),
+          child: LinguaFloatingActionButton(currentScreen: 'profile'),
         ),
 
         appBar: linguaAppBar(title_: "Profile", context: context),
@@ -51,8 +51,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Expanded(
                 child: ListView(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   children: [
+                    SizedBox(height: 100,),
                     ProfileBanner(
                       username: currentUser.username,
                       userLevel: currentUser.level.name,
@@ -74,24 +75,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     progressCard(
                       title: "Progress",
-                      xp: "12850",
-                      lessons: "48",
-                      rank: "#1",
+                      xp: currentUser.totalMessages > 0 
+                          ? "${currentUser.accuracyPercentage.toStringAsFixed(1)}%"
+                          : "0%",
+                      lessons: "${currentUser.lessonsStarted}",
+                      rank: "${currentUser.messagesWithCorrections}",
                     ),
 
                     const SizedBox(height: 24),
 
-                    progressCard(
-                      title: "More Stats",
-                      xp: "12850",
-                      lessons: "48",
-                      rank: "#1",
-                    ),
+                    // progressCard(
+                    //   title: "More Stats",
+                    //   xp: "12850",
+                    //   lessons: "48",
+                    //   rank: "#1",
+                    // ),
 
                     const SizedBox(height: 80),
                   ],
                 ),
               ),
+              
 
               Padding(
                 padding: const EdgeInsets.only(bottom: 80),
@@ -112,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
 
-        bottomNavigationBar: const LinguaNavigationBar(),
+        bottomNavigationBar: const LinguaNavigationBar(currentScreen: 'profile'),
       ),
     );
   }
