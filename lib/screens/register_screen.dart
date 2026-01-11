@@ -22,7 +22,7 @@ class RegisterScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 300.0),
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0,),
                   child: const RegisterForm(),
                 ),
               ),

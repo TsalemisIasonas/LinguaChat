@@ -17,13 +17,18 @@ class _LinguaNavigationBarState extends State<LinguaNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+
+    
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(25),
         topRight: Radius.circular(25),
       ),
       child: BottomAppBar(
-        padding: const EdgeInsets.only(left: 40, right: 40),
+        padding: EdgeInsets.only(
+          left: 40,
+          right: 40,
+        ),
         height: 85,
         shape: const CircularNotchedRectangle(),
         color: navbarColor,

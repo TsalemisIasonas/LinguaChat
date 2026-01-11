@@ -27,7 +27,7 @@ class LinguaUser {
 
   String? locationCity;
   int streak;
-  int score;
+  int score ;
   int totalMessages;
   int messagesWithCorrections;
   int lessonsStarted;
@@ -49,12 +49,15 @@ class LinguaUser {
     this.rank,
   });
 
-  /// Calculate accuracy percentage
   double get accuracyPercentage {
     if (totalMessages == 0) return 0.0;
     return ((totalMessages / 2 - messagesWithCorrections) /
         (totalMessages / 2) *
         100);
+  }
+
+  int get scoreCalculation{
+    return ( 0.7 * lessonsStarted + 0.3 * (totalMessages - messagesWithCorrections)).toInt() * 100;
   }
 
   /// Convert a User object into a Map for Firestore (writing data)
@@ -84,7 +87,7 @@ class LinguaUser {
       streak: firestoreData['streak'],
       profilePicturePath: firestoreData['profilePicturePath'] as String?,
       locationCity: firestoreData['locationCity'],
-      score: firestoreData['score'],
+      score: firestoreData['score'] ?? 0,
       totalMessages: firestoreData['totalMessages'] ?? 0,
       messagesWithCorrections: firestoreData['messagesWithCorrections'] ?? 0,
       lessonsStarted: firestoreData['lessonsStarted'] ?? 0,

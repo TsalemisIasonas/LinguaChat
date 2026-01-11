@@ -23,7 +23,7 @@ class LinguaBanner extends StatelessWidget {
             stops: [0.05, 0.7],
           ),
         ),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.only(top: 150.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:lingua_chat/screens/home_screen.dart';
+import 'package:lingua_chat/screens/initial_screen.dart';
 import 'package:lingua_chat/widgets/input_field.dart';
 import 'package:lingua_chat/widgets/print_error_text.dart';
 import 'package:lingua_chat/repositories/user_repository.dart';
@@ -43,7 +44,7 @@ class _LoginFormState extends State<RegisterForm> {
       AppSound.intro.play();
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(builder: (_) => const InitialScreen()),
         (route) => false,
       );
     } on FirebaseAuthException catch (e) {
@@ -83,23 +84,23 @@ class _LoginFormState extends State<RegisterForm> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 15),
-
-          printErrorText(_registerErrorMessage),
           const SizedBox(height: 10),
 
+          printErrorText(_registerErrorMessage),
+          const SizedBox(height: 5),
+
           inputField("Email", _emailController),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
 
           inputField("Password", _passwordController, obscureText_: true),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
 
           inputField(
             "Verify Password",
             _passwordVerifyController,
             obscureText_: true,
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 22),
 
           // Register button
           ElevatedButton(

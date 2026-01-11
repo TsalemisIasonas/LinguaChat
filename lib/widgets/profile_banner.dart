@@ -153,7 +153,7 @@ class _ProfileBannerState extends State<ProfileBanner> {
 
           const SizedBox(height: 4),
           Text(
-            "${widget.userLevel} learner",
+            "${widget.userLevel[0].toUpperCase()}${widget.userLevel.substring(1).toLowerCase()} Learner",
             style: TextStyle(
               fontFamily: "Poppins",
               fontSize: 14,
