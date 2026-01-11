@@ -93,6 +93,10 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
                 final user = usersList[index];
                 final rank = index + 1;
 
+                if (currentUser.email == user.email) {
+                  currentUser.rank = rank;
+                }
+
                 return Container(
                   margin: const EdgeInsets.only(bottom: 12),
                   padding: const EdgeInsets.all(12),
