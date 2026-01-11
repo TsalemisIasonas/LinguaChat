@@ -108,13 +108,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         });
                       },
                     ),
-                    animatedSwitch(
-                      label: 'Dark theme',
-                      value: true,
-                      onChanged: (value) {
-                        setState(() {});
-                      },
-                    ),
                   ],
                 ),
               ),
