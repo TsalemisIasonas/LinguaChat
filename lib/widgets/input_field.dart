@@ -24,6 +24,7 @@ Widget inputField(
       TextField(
         obscureText: obscureText_,
         controller: controller_,
+        textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           hintText: name_,
           hintStyle: TextStyle(color: Colors.grey[400], fontSize: 16),

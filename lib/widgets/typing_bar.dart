@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lingua_chat/screens/speaking_screen.dart';
+import 'package:lingua_chat/services/sound_service.dart';
 
 class TypingBar extends StatefulWidget {
-  final Function(String message) onSend;   // <-- Added callback
+  final Function(String message) onSend; // <-- Added callback
 
   const TypingBar({super.key, required this.onSend});
 
@@ -22,19 +23,18 @@ class _TypingBarState extends State<TypingBar> {
   void _goToSpeakingScreen() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const SpeakingScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const SpeakingScreen()),
     );
   }
 
   void _sendMessage() {
     final text = _messageController.text.trim();
 
+    AppSound.click.play();
     if (text.isNotEmpty) {
-      widget.onSend(text);         // <-- send message to ChatScreen
+      widget.onSend(text); // <-- send message to ChatScreen
       print('\n\n\n\n\n\nmessage sent\n\n\n\n\n\n\n');
-      _messageController.clear();  // <-- keep UI same
+      _messageController.clear(); // <-- keep UI same
     }
   }
 
@@ -63,11 +63,7 @@ class _TypingBarState extends State<TypingBar> {
             onTap: _goToSpeakingScreen,
             child: Container(
               padding: const EdgeInsets.all(12),
-              child: const Icon(
-                Icons.mic,
-                size: 28,
-                color: Colors.black,
-              ),
+              child: const Icon(Icons.mic, size: 28, color: Colors.black),
             ),
           ),
 
@@ -79,12 +75,12 @@ class _TypingBarState extends State<TypingBar> {
               controller: _messageController,
               decoration: const InputDecoration(
                 hintText: 'Type a message...',
-                hintStyle: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 8,
+                ),
               ),
               maxLines: null,
               textInputAction: TextInputAction.send,
@@ -103,11 +99,7 @@ class _TypingBarState extends State<TypingBar> {
                 color: Color(0xFF6C63FF),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.send,
-                size: 24,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.send, size: 24, color: Colors.white),
             ),
           ),
         ],

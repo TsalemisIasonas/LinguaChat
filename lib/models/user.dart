@@ -31,6 +31,7 @@ class LinguaUser {
   int totalMessages;
   int messagesWithCorrections;
   int lessonsStarted;
+  int? rank;
 
   LinguaUser({
     required this.email,
@@ -45,12 +46,15 @@ class LinguaUser {
 
     this.profilePicturePath,
     this.locationCity,
+    this.rank,
   });
-  
+
   /// Calculate accuracy percentage
   double get accuracyPercentage {
     if (totalMessages == 0) return 0.0;
-    return ((totalMessages/2 - messagesWithCorrections) / (totalMessages/2) * 100);
+    return ((totalMessages / 2 - messagesWithCorrections) /
+        (totalMessages / 2) *
+        100);
   }
 
   /// Convert a User object into a Map for Firestore (writing data)

@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: ListView(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   children: [
-                    SizedBox(height: 100,),
+                    SizedBox(height: 100),
                     ProfileBanner(
                       username: currentUser.username,
                       userLevel: currentUser.level.name,
@@ -75,11 +75,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     progressCard(
                       title: "Progress",
-                      xp: currentUser.totalMessages > 0 
+                      xp: currentUser.totalMessages > 0
                           ? "${currentUser.accuracyPercentage.toStringAsFixed(1)}%"
                           : "0%",
                       lessons: "${currentUser.lessonsStarted}",
-                      rank: "${currentUser.messagesWithCorrections}",
+                      rank: currentUser.rank == null
+                          ? "-"
+                          : "${currentUser.rank}",
                     ),
 
                     const SizedBox(height: 24),
@@ -90,12 +92,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     //   lessons: "48",
                     //   rank: "#1",
                     // ),
-
                     const SizedBox(height: 80),
                   ],
                 ),
               ),
-              
 
               Padding(
                 padding: const EdgeInsets.only(bottom: 80),
@@ -116,7 +116,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
 
-        bottomNavigationBar: const LinguaNavigationBar(currentScreen: 'profile'),
+        bottomNavigationBar: const LinguaNavigationBar(
+          currentScreen: 'profile',
+        ),
       ),
     );
   }
