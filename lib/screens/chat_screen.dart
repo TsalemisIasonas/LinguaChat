@@ -80,7 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
     
     // Check if response contains a correction (starts with NOTE:)
-    if (response.trim().startsWith('NOTE:')) {
+    if (response.trim().startsWith('ΠΡΟΣΟΧΗ:')) {
       setState(() {
         currentUser.messagesWithCorrections++;
       });

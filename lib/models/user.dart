@@ -51,9 +51,7 @@ class LinguaUser {
 
   double get accuracyPercentage {
     if (totalMessages == 0) return 0.0;
-    return ((totalMessages / 2 - messagesWithCorrections) /
-        (totalMessages / 2) *
-        100);
+    return ((totalMessages - messagesWithCorrections) / totalMessages * 100);
   }
 
   int get scoreCalculation{

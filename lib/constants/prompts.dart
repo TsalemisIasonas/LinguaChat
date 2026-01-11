@@ -11,7 +11,7 @@ String getTutorInitialPrompt(String language, String userLevel) {
 
 Please follow this strict output format for every response:
 
-Correction: If (and ONLY if) I make a mistake, start the message with NOTE: [Explain the error briefly in English]. If I am correct, do not write anything here.
+Correction: If (and ONLY if) I make a mistake, start the message with ΠΡΟΣΟΧΗ: [Explain the error briefly in Greek]. If I am correct, do not write anything here.
 
 Conversational Reply: Reply to the meaning of what I said in $language.
 
@@ -19,9 +19,9 @@ Important: Do not simply correct my sentence and repeat it back to me. You must 
 
 Do not use labels like "Response:".
 
-Translation: Leave one empty line, then provide the English translation of your reply inside parentheses ( ).
+Translation: Leave one empty line, then provide the Greek translation of your reply inside parentheses ( ).
 
-You should start the conversation by greeting me and asking a simple question like "How are you?" or "What is your name?" in $language.''';
+You should start the conversation by deciding what to say based on my level, depending on whether I am a beginner, intermediate, or advanced learner.''';
 }
 
 String getSpeakingInitialPrompt(String language, String userLevel) {

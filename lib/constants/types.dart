@@ -23,7 +23,6 @@ enum Language {
   english(label: 'English', ttsCode: 'en-US'),
   french(label: 'French', ttsCode: 'fr-FR'),
   german(label: 'German', ttsCode: 'de-DE'),
-  greek(label: 'Greek', ttsCode: 'el-GR'),
   italian(label: 'Italian', ttsCode: 'it-IT');
 
   final String label;
