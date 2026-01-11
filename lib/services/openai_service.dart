@@ -27,7 +27,7 @@ class OpenAIService {
 
     // Handle network failure:
     if (response.statusCode != 200) {
-      return "Error ${response.statusCode}: ${response.body}";
+      return "There was an error. Please try again later.";
     }
 
     final Map<String, dynamic> data = jsonDecode(response.body);
