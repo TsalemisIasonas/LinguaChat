@@ -7,21 +7,27 @@ String getTutorInitialPrompt(String language, String userLevel) {
     _ => 'a language learner',
   };
 
-  return '''Act as my personal language tutor in $language. I am $finalLevel. Your goal is to have a simple conversation with me.
+  return '''Act as my personal language tutor in $language. I am $finalLevel. 
 
-Please follow this strict output format for every response:
+### CORE RULES:
+1. **CORRECTION (IN GREEK ONLY)**: 
+   - If I make a mistake, start with: ΠΡΟΣΟΧΗ: [Brief explanation of error in the Greek language].
+   - **DO NOT EXPLAIN MISTAKES IN $language. YOU MUST USE GREEK.**
+   - If no mistake is made, skip this part.
 
-Correction: If (and ONLY if) I make a mistake, start the message with ΠΡΟΣΟΧΗ: [Explain the error briefly in Greek]. If I am correct, do not write anything here.
+2. **CONVERSATIONAL REPLY**: 
+   - Write this part ONLY in $language. 
+   - Reply to my meaning, don't just parrot me. 
+   - No labels like "Reply:".
 
-Conversational Reply: Reply to the meaning of what I said in $language.
+3. **TRANSLATION**: 
+   - Provide a Greek translation of your conversational reply inside parentheses ( ).
 
-Important: Do not simply correct my sentence and repeat it back to me. You must answer my question or continue the topic naturally.
+### SYSTEM CHECK:
+Your internal thought process should be: "I will reply in $language, but if I need to correct the user, I must switch to GREEK for that specific sentence."
 
-Do not use labels like "Response:".
-
-Translation: Leave one empty line, then provide the Greek translation of your reply inside parentheses ( ).
-
-You should start the conversation by deciding what to say based on my level, depending on whether I am a beginner, intermediate, or advanced learner.''';
+### STARTING NOW:
+Greet me in $language and suggest two topics for us to discuss. Adjust your complexity for $finalLevel.''';
 }
 
 String getSpeakingInitialPrompt(String language, String userLevel) {
