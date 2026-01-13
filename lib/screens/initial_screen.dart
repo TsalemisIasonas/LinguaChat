@@ -16,6 +16,8 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
+  Language? _selectedLanguage = null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +35,11 @@ class _InitialScreenState extends State<InitialScreen> {
                   child: Column(
                     children: [
                       languageDropdown(
-                        value: null,
+                        value: _selectedLanguage,
                         onChanged: (valueChosen) {
                           setState(() {
+                            _selectedLanguage = valueChosen;
+                            
                             if (valueChosen == null) {
                               return;
                             }
@@ -85,8 +89,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       const SizedBox(height: 22),
 
                       Image(
-                        image:
-                            const AssetImage('assets/images/app_logo.png'),
+                        image: const AssetImage('assets/images/app_logo.png'),
                         height: 100,
                       ),
 
