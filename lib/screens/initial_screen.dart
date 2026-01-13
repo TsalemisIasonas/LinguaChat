@@ -16,7 +16,7 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  Language? _selectedLanguage = null;
+  Language? _selectedLanguage;
 
   @override
   Widget build(BuildContext context) {
