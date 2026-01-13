@@ -20,10 +20,20 @@ enum UserLevel { beginner, intermediate, advanced }
 /// - [label]: the human-readable name of the language.
 /// - [ttsCode]: the language code
 enum Language {
+  chinese(label: 'Chinese', ttsCode: 'zh-CN'),
+  dutch(label: 'Dutch', ttsCode: 'nl-NL'),
   english(label: 'English', ttsCode: 'en-US'),
   french(label: 'French', ttsCode: 'fr-FR'),
   german(label: 'German', ttsCode: 'de-DE'),
-  italian(label: 'Italian', ttsCode: 'it-IT');
+  hindi(label: 'Hindi', ttsCode: 'hi-IN'),
+  italian(label: 'Italian', ttsCode: 'it-IT'),
+  japanese(label: 'Japanese', ttsCode: 'ja-JP'),
+  korean(label: 'Korean', ttsCode: 'ko-KR'),
+  portuguese(label: 'Portuguese', ttsCode: 'pt-BR'),
+  russian(label: 'Russian', ttsCode: 'ru-RU'),
+  spanish(label: 'Spanish', ttsCode: 'es-ES'),
+  turkish(label: 'Turkish', ttsCode: 'tr-TR'),
+  vietnamese(label: 'Vietnamese', ttsCode: 'vi-VN');
 
   final String label;
   final String ttsCode;
