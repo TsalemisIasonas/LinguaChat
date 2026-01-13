@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/styles/colors.dart';
 import 'package:lingua_chat/styles/text_styles.dart';
@@ -33,13 +34,12 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _sendInitialPrompt() async {
-    final initialPrompt = getTutorInitialPrompt(currentUser.language.label, currentUser.level.name);
-    
-    conversationHistory.add({
-      "role": "system",
-      "content": initialPrompt,
-    });
+    final initialPrompt = getTutorInitialPrompt(
+      currentUser.language.label,
+      currentUser.level.name,
+    );
 
+    conversationHistory.add({"role": "system", "content": initialPrompt});
 
     // Get the AI's first greeting
     final response = await openAI.sendMessage(
@@ -47,10 +47,7 @@ class _ChatScreenState extends State<ChatScreen> {
       conversationHistory: conversationHistory,
     );
 
-    conversationHistory.add({
-      "role": "assistant",
-      "content": response,
-    });
+    conversationHistory.add({"role": "assistant", "content": response});
 
     setState(() {
       messages.add(ChatMessage(text: response, type: MessageType.received));
@@ -67,10 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
     });
 
     // Add user message to conversation history
-    conversationHistory.add({
-      "role": "user",
-      "content": text,
-    });
+    conversationHistory.add({"role": "user", "content": text});
 
     scrollToBottom();
 
@@ -78,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen> {
       text,
       conversationHistory: conversationHistory,
     );
-    
+
     // Check if response contains a correction (starts with NOTE:)
     if (response.trim().startsWith('ΠΡΟΣΟΧΗ:')) {
       setState(() {
@@ -87,17 +81,16 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     setState(() {
-      currentUser.score = currentUser.lessonsStarted * 70 + (currentUser.totalMessages - currentUser.messagesWithCorrections) * 30;
+      currentUser.score =
+          currentUser.lessonsStarted * 70 +
+          (currentUser.totalMessages - currentUser.messagesWithCorrections) *
+              30;
     });
-    
-    // Save updated stats to database
+
     UserRepository().addOrUpdateUser(currentUser);
 
     // Add assistant response to conversation history
-    conversationHistory.add({
-      "role": "assistant",
-      "content": response,
-    });
+    conversationHistory.add({"role": "assistant", "content": response});
 
     setState(() {
       messages.add(ChatMessage(text: response, type: MessageType.received));
@@ -118,7 +111,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     final bottomPadding = MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
@@ -130,7 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
         shadowColor: Colors.black,
         title: Column(
           children: [
-            Text('Conversation', style: AppTextStyles.appBarTextStyle,),
+            Text('Conversation', style: AppTextStyles.appBarTextStyle),
           ],
         ),
         actions: [
@@ -159,7 +151,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
 
           Center(
-            child: Image.asset(  
+            child: Image.asset(
               'assets/images/app_logo.png',
               fit: BoxFit.cover,
               width: 300,
@@ -169,7 +161,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
           /// Chat messages
           Padding(
-            padding: const EdgeInsets.only(bottom: 100, left: 10, right: 10, top: 20),
+            padding: const EdgeInsets.only(
+              bottom: 100,
+              left: 10,
+              right: 10,
+              top: 20,
+            ),
             child: ListView.builder(
               controller: scrollController,
               itemCount: messages.length,
@@ -181,7 +178,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       : Alignment.centerLeft,
                   child: Container(
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 6),
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
                       color: msg.type == MessageType.sent
@@ -189,10 +188,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           : Colors.purple,
                       borderRadius: BorderRadius.circular(18),
                     ),
-                    child: Text(
-                      msg.text,
-                      style: AppTextStyles.messageTextStyle,
-                    ),
+                    child: MarkdownBody(data: msg.text),
                   ),
                 );
               },
