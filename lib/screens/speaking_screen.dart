@@ -27,7 +27,6 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
   bool _isListening = false;
   bool _isProcessing = false;
   bool _isSpeaking = false;
-  bool _isFirstMessage = true;
   String _transcribedText = '';
 
 
