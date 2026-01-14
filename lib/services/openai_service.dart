@@ -8,7 +8,6 @@ class OpenAIService {
   Future<String> sendMessage(String message, {List<Map<String, String>>? conversationHistory}) async {
     final url = Uri.parse("https://api.openai.com/v1/chat/completions");
 
-    // Build messages array - use conversation history if provided, otherwise single message
     final messages = conversationHistory ?? [
       {"role": "user", "content": message}
     ];
@@ -20,19 +19,17 @@ class OpenAIService {
         "Authorization": "Bearer $apiKey",
       },
       body: jsonEncode({
-        "model": "gpt-4o-mini", 
+        "model": "gpt-4.1-mini", 
         "messages": messages,
       }),
     );
 
-    // Handle network failure:
     if (response.statusCode != 200) {
-      return "There was an error. Please try again later.";
+      return "There was an error, please try again later.";
     }
 
     final Map<String, dynamic> data = jsonDecode(response.body);
 
-    // Handle OpenAI JSON format:
     try {
       return data["choices"][0]["message"]["content"];
     } catch (e) {
