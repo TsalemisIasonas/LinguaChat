@@ -14,7 +14,7 @@ class LeaderboardScreen extends StatelessWidget {
     return Container(
       decoration: backgroundGradient,
       child: Scaffold(
-        extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: false,
         backgroundColor: Colors.transparent,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: SizedBox(

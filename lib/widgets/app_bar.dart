@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:lingua_chat/screens/home_screen.dart';
 import 'package:lingua_chat/services/sound_service.dart';
+import 'package:lingua_chat/styles/colors.dart';
 import 'package:lingua_chat/styles/text_styles.dart';
 
 AppBar linguaAppBar({required String title_, required BuildContext context}) {
@@ -14,7 +15,7 @@ AppBar linguaAppBar({required String title_, required BuildContext context}) {
   ];
 
   return AppBar(
-    backgroundColor: Colors.transparent,
+    backgroundColor: gradientColorStart,
     centerTitle: true,
     title: Text(
       title_,
