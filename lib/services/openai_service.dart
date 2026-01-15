@@ -19,7 +19,7 @@ class OpenAIService {
         "Authorization": "Bearer $apiKey",
       },
       body: jsonEncode({
-        "model": "gpt-4o", 
+        "model": "gpt-4o-mini", 
         "messages": messages,
       }),
     );
