@@ -102,8 +102,17 @@
 - **Platform:** Android  
 - **Android SDK Version:** `36.0.0`
 
+- githubrepo: https://github.com/TsalemisIasonas/LinguaChat
+
+
+
 ---
 
 
+
+https://github.com/user-attachments/assets/bd79fb79-952f-414e-b43d-e63ccbf6bffe
+
+
 ✨ **Καλή εκμάθηση με το LinguaChat!**
+
 
