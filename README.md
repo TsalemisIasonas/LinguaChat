@@ -100,9 +100,10 @@
 
 - **Framework:** Flutter  
 - **Platform:** Android  
-- **Android SDK Version:** `36.1.0`
+- **Android SDK Version:** `36.0.0`
 
 ---
 
 
 ✨ **Καλή εκμάθηση με το LinguaChat!**
+
